@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'cloudinary_storage',
-    'bootstrap4'
-    'hoteli',
-    'users',
+    'bootstrap4',
+    'api',
+    
 ]
 
 MIDDLEWARE = [
