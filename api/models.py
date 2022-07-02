@@ -5,7 +5,7 @@ import datetime as dt
 
 class Rooms (models.Model):
     name = models.CharField(max_length=100)
-    # rate = models.IntegerField(blank=True, null=True)
+    rate = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='images/')
     # hotel = models.ForeignKey(Hotel,  on_delete=models.CASCADE)
     hotel =  models.CharField(max_length=100)
