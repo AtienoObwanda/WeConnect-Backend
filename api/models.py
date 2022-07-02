@@ -1,7 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime as dt
-# Create your models here.
+
+
+class User(AbstractUser):
+    is_tutor = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
+
+
+    # user = models.OneToOneField(User, related_name='tutor', on_delete = models.CASCADE, primary_key = True)
+    # def __str__(self):
+    #         return self.user.first_name
+
+    
 
 class Rooms (models.Model):
     name = models.CharField(max_length=100)
