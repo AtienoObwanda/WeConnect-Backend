@@ -1,14 +1,35 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 import datetime as dt
-# Create your models here.
+
+
+class User(AbstractUser):
+    is_hotelAdmin = models.BooleanField(default=False)
+    is_customer = models.BooleanField(default=False)
+   
+
+class HotelAdmin(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    def __str__(self):
+        return self.name
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, related_name='customer', on_delete = models.CASCADE, primary_key = True)
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    contact = models.IntegerField(blank=True, null=True)
+    # bookings = models.ForeignKey(Bookings, null=True, on_delete=models.CASCADE)
+    def __str__(self):
+            return self.user.name
+
+
 
 class Rooms (models.Model):
     name = models.CharField(max_length=100)
     rate = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='images/')
-    # hotel = models.ForeignKey(Hotel,  on_delete=models.CASCADE)
-    hotel =  models.CharField(max_length=100)
     
     def __str__(self):
         return self.name
@@ -30,7 +51,7 @@ class Hotel (models.Model):
     facility = models.ForeignKey(Facility,  on_delete=models.CASCADE)
     bookings = models.CharField(max_length=100)
     cover_image = models.ImageField(upload_to='images/')
-    # admin = models.CharField(Admin, on_delete=models.CASCADE)
+    admin = models.ForeignKey(HotelAdmin, on_delete=models.CASCADE)
    
         
     def __str__(self):
@@ -56,7 +77,7 @@ class Hotel (models.Model):
 class Booking(models.Model):
     hotels = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     amount = models.ForeignKey(Rooms,  on_delete=models.CASCADE)
-    # user =  models.ForeignKey(Customer,  on_delete=models.CASCADE)
+    user =  models.ManyToManyField(Customer, related_name='bookings')
     date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
