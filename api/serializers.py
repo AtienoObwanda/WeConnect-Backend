@@ -6,7 +6,7 @@ from api.models import User,HotelAdmin, Customer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=['username', 'email', 'is_HotelAdmin']
+        fields=['username', 'email', 'is_owner']
 
 class CustomerSignupSerializer(serializers.ModelSerializer):
     password2=serializers.CharField(style={"input_type":"password"}, write_only=True)
@@ -22,6 +22,7 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
             username=self.validated_data['username'],
             email=self.validated_data['email']
         )
+        # 'name','contact',
         password=self.validated_data['password']
         password2=self.validated_data['password2']
         if password !=password2:
@@ -37,7 +38,7 @@ class HotelAdminSignupSerializer(serializers.ModelSerializer):
     password2=serializers.CharField(style={"input_type":"password"}, write_only=True)
     class Meta:
         model=User
-        fields=['username','email','password', 'password2']
+        fields=['username','email','password', 'password2'] # 'name',
         extra_kwargs={
             'password':{'write_only':True}
         }
@@ -53,7 +54,7 @@ class HotelAdminSignupSerializer(serializers.ModelSerializer):
         if password !=password2:
             raise serializers.ValidationError({"error":"password do not match"})
         user.set_password(password)
-        user.is_HotelAdmin=True
+        user.is_owner=True
         user.save()
         HotelAdmin.objects.create(user=user)
         return user

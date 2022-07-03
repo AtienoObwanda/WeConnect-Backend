@@ -8,7 +8,7 @@ from rest_framework.authtoken.models import Token
 
 
 class User(AbstractUser):
-    is_hotelAdmin = models.BooleanField(default=False)
+    is_owner = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
 
     def __str__(self) :
