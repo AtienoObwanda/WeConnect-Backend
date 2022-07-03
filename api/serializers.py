@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.models import User,HotelAdmin, Customer
+from api.models import User, Customer, owner
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -56,5 +56,5 @@ class HotelAdminSignupSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.is_owner=True
         user.save()
-        HotelAdmin.objects.create(user=user)
+        owner.objects.create(user=user)
         return user

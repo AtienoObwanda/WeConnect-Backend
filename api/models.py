@@ -20,12 +20,12 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
    
 
-class HotelAdmin(models.Model):
-    user = models.OneToOneField(User, related_name='hotelAdmin', on_delete = models.CASCADE, primary_key = True)
+class owner(models.Model):
+    user = models.OneToOneField(User, related_name='owner', on_delete = models.CASCADE, primary_key = True)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     def __str__(self):
-        return self.name
+        return self.username
 
 
 class Customer(models.Model):
@@ -35,7 +35,7 @@ class Customer(models.Model):
     contact = models.IntegerField(blank=True, null=True)
     # bookings = models.ForeignKey(Bookings, null=True, on_delete=models.CASCADE)
     def __str__(self):
-            return self.user.name
+            return self.user.username
 
     
 class Facility(models.Model):
@@ -51,7 +51,7 @@ class Hotel (models.Model):
     facility = models.ForeignKey(Facility,  on_delete=models.CASCADE)
     # bookings = models.CharField(max_length=100)
     cover_image = models.ImageField(upload_to='images/')
-    admin = models.ForeignKey(HotelAdmin, on_delete=models.CASCADE)
+    admin = models.ForeignKey(owner, on_delete=models.CASCADE)
    
         
     def __str__(self):
