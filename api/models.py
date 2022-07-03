@@ -1,18 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 import datetime as dt
+from django.db.models.signals import post_save
+from django.conf import settings
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 
 class User(AbstractUser):
-    is_hotelAdmin = models.BooleanField(default=False)
+    is_owner = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
+
+    def __str__(self) :
+        return self.username
+        
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
    
 
-class HotelAdmin(models.Model):
+class owner(models.Model):
+    user = models.OneToOneField(User, related_name='owner', on_delete = models.CASCADE, primary_key = True)
     name = models.CharField(max_length=255)
     email = models.EmailField()
     def __str__(self):
-        return self.name
+        return self.username
 
 
 class Customer(models.Model):
@@ -22,20 +35,8 @@ class Customer(models.Model):
     contact = models.IntegerField(blank=True, null=True)
     # bookings = models.ForeignKey(Bookings, null=True, on_delete=models.CASCADE)
     def __str__(self):
-            return self.user.name
+            return self.user.username
 
-
-
-class Rooms (models.Model):
-    name = models.CharField(max_length=100)
-    rate = models.IntegerField(blank=True, null=True)
-    image = models.ImageField(upload_to='images/')
-    
-    def __str__(self):
-        return self.name
-    
-    def create_room(self):
-        self.save
     
 class Facility(models.Model):
     facility_name = models.CharField(max_length=100, blank=True)
@@ -46,12 +47,11 @@ class Facility(models.Model):
     
 class Hotel (models.Model):
     hotel_name = models.CharField(max_length=100)
-    rooms= models.ForeignKey(Rooms,  on_delete=models.CASCADE)
     description = models.TextField(blank= True)
     facility = models.ForeignKey(Facility,  on_delete=models.CASCADE)
-    bookings = models.CharField(max_length=100)
+    # bookings = models.CharField(max_length=100)
     cover_image = models.ImageField(upload_to='images/')
-    admin = models.ForeignKey(HotelAdmin, on_delete=models.CASCADE)
+    admin = models.ForeignKey(owner, on_delete=models.CASCADE)
    
         
     def __str__(self):
@@ -73,7 +73,17 @@ class Hotel (models.Model):
     def update_hotel(self, hotel_name):
         self.hotel_name = hotel_name
         self.save()
-                    
+class Rooms (models.Model):
+    name = models.CharField(max_length=100)
+    rate = models.IntegerField(blank=True, null=True)
+    image = models.ImageField(upload_to='images/')
+    hotel= models.ForeignKey(Hotel,  on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+    
+    def create_room(self):
+        self.save
+
 class Booking(models.Model):
     hotels = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     amount = models.ForeignKey(Rooms,  on_delete=models.CASCADE)
