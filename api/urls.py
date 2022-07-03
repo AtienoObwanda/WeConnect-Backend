@@ -11,6 +11,6 @@ urlpatterns = [
     path('signup/admin/', HotelAdminSignupView.as_view()),
     path('login/',CustomAuthToken.as_view(), name='auth-token'),
     path('logout/', LogoutView.as_view(), name='logout-view'),
-    path('freelance/dashboard/', CustomerOnlyView.as_view(), name='customer-dashboard'),
-    path('client/dashboard/', AdminOnlyView.as_view(), name='admin-dashboard'),
+    path('customer/dashboard/', CustomerOnlyView.as_view(), name='customer-dashboard'),
+    path('admin/dashboard/', AdminOnlyView.as_view(), name='admin-dashboard'),
 ]
