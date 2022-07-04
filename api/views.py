@@ -1,14 +1,16 @@
 from django.shortcuts import render
 
 
-from django.http import request
+from django.http import Http404, request
 from rest_framework import generics, permissions, status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from .serializers import CustomerSignupSerializer, HotelAdminSignupSerializer, UserSerializer, HotelSerializer, FacilitySerializer, RoomSerializer, BookingSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.views import APIView
+
 from .permissions import IsCustomerUser, IsHotelAdminUser
+from .models import *
 
 class CustomerSignupView(generics.GenericAPIView):
     serializer_class=CustomerSignupSerializer
@@ -77,13 +79,43 @@ class AddHotel(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Fetch Hotel information
+# Fetch all Hotel information
+class HotelList(APIView):
+    def get(self, request, format=None):
+        hotels = Hotel.objects.all()
+        serializer = HotelSerializer(hotels, many=True)
+        return Response(serializer.data)
 
+        
 # Update Hotel information
+class UpdateHotel(APIView):
+    def put(self, request, pk, format=None):
+        hotel = self.get_object(pk)
+        serializer = HotelSerializer(hotel, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Delete Hotel information
+class DeleteHotel(APIView):
+    def delete(self, request, pk, format=None):
+        hotel = self.get_object(pk)
+        hotel.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
+# Fetch single hotel information
+class GetHotel(APIView):
+    def get_object(self, pk):
+        try:
+            return Hotel.objects.get(pk=pk)
+        except Hotel.DoesNotExist:
+            raise Http404
 
+    def get(self, request, pk, format=None):
+        hotel = self.get_object(pk)
+        serializer = HotelSerializer(hotel)
+        return Response(serializer.data)
 
 #Create Room
 class AddRoom(APIView):
