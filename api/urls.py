@@ -16,9 +16,9 @@ urlpatterns = [
     path('admin/dashboard/', AdminOnlyView.as_view(), name='admin-dashboard'),
 
     path('hotels/', HotelList.as_view(), name='hotels'),
-    path('hotel-detail/', GetHotel.as_view(), name='hotel-detail'),
-    path('delete-hotel/', DeleteHotel.as_view(), name=' deleteHotel'),
-    path('update-hotel', UpdateHotel.as_view(), name='updateHotel'),
+    path('hotel-detail/<int:pk>/', GetHotel.as_view(), name='hotel-detail'),
+    path('delete-hotel/<int:pk>/', DeleteHotel.as_view(), name=' deleteHotel'),
+    path('update-hotel/<int:pk>/', UpdateHotel.as_view(), name='updateHotel'),
     path('new-hotel', AddHotel.as_view(), name='newHotel'),
 
 ]

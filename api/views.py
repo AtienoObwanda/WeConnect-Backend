@@ -86,9 +86,15 @@ class HotelList(APIView):
         serializer = HotelSerializer(hotels, many=True)
         return Response(serializer.data)
 
-        
+
 # Update Hotel information
 class UpdateHotel(APIView):
+    def get_object(self, pk):
+        try:
+            return Hotel.objects.get(pk=pk)
+        except Hotel.DoesNotExist:
+            raise Http404
+
     def put(self, request, pk, format=None):
         hotel = self.get_object(pk)
         serializer = HotelSerializer(hotel, data=request.data)
@@ -99,6 +105,12 @@ class UpdateHotel(APIView):
 
 # Delete Hotel information
 class DeleteHotel(APIView):
+    def get_object(self, pk):
+        try:
+            return Hotel.objects.get(pk=pk)
+        except Hotel.DoesNotExist:
+            raise Http404
+            
     def delete(self, request, pk, format=None):
         hotel = self.get_object(pk)
         hotel.delete()
