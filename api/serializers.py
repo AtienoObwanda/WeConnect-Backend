@@ -60,7 +60,7 @@ class HotelAdminSignupSerializer(serializers.ModelSerializer):
         return user
 
 # Add Facility
-class Facility(serializers.ModelSerializer):
+class FacilitySerializer(serializers.ModelSerializer):
      class Meta:
         model = Facility
         fields = "__all__"
@@ -71,7 +71,7 @@ class Facility(serializers.ModelSerializer):
             return instance
 
 # Add Rooms
-class Rooms(serializers.ModelSerializer):
+class RoomSerializer(serializers.ModelSerializer):
      class Meta:
         model = Rooms
         fields = "__all__"
@@ -81,7 +81,7 @@ class Rooms(serializers.ModelSerializer):
             instance.save()
             return instance
 # Add Hotel
-class Hotel(serializers.ModelSerializer):
+class HotelSerializer(serializers.ModelSerializer):
      class Meta:
         model = Hotel
         fields = "__all__"
@@ -92,7 +92,7 @@ class Hotel(serializers.ModelSerializer):
             return instance
 
 # Add Booking
-class Booking(serializers.ModelSerializer):
+class BookingSerializer(serializers.ModelSerializer):
      class Meta:
         model = Booking
         fields = "__all__"

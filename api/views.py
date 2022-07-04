@@ -5,7 +5,7 @@ from django.http import request
 from rest_framework import generics, permissions, status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from .serializers import CustomerSignupSerializer, HotelAdminSignupSerializer, UserSerializer
+from .serializers import CustomerSignupSerializer, HotelAdminSignupSerializer, UserSerializer, HotelSerializer, FacilitySerializer, RoomSerializer, BookingSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.views import APIView
 from .permissions import IsCustomerUser, IsHotelAdminUser
@@ -67,6 +67,78 @@ class CustomerOnlyView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+#Create Hotel
+class AddHotel(APIView):
+    def post(self, request, format=None):
+        serializer = HotelSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Fetch Hotel information
+
+# Update Hotel information
+
+# Delete Hotel information
+
+
+
+#Create Room
+class AddRoom(APIView):
+    def post(self, request, format=None):
+        serializer = RoomSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+# Fetch Room information
+
+# Update Room information
+
+# Delete Room information
+
+
+#Create Facility 
+class AddFacility(APIView):
+    def post(self, request, format=None):
+        serializer = FacilitySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Fetch Facility information
+
+# Update Facility information
+
+# Delete Facility information
+
+
+
+#Create Booking
+class AddBooking(APIView):
+    def post(self, request, format=None):
+        serializer = BookingSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Fetch Booking information
+
+# Update Booking information
+
+# Delete Booking information
+
+
+
+
+
+
+    
 
 def home(request):
     return render(request, 'home.html')
