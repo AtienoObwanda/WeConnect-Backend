@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.models import User, Customer, owner
+from api.models import User, Customer, owner, Facility, Hotel, Rooms, Booking
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -58,3 +58,47 @@ class HotelAdminSignupSerializer(serializers.ModelSerializer):
         user.save()
         owner.objects.create(user=user)
         return user
+
+# Add Facility
+class Facility(serializers.ModelSerializer):
+     class Meta:
+        model = Facility
+        fields = "__all__"
+
+        def create(self, validated_data):
+            instance = self.Meta.model(**validated_data)
+            instance.save()
+            return instance
+
+# Add Rooms
+class Rooms(serializers.ModelSerializer):
+     class Meta:
+        model = Rooms
+        fields = "__all__"
+
+        def create(self, validated_data):
+            instance = self.Meta.model(**validated_data)
+            instance.save()
+            return instance
+# Add Hotel
+class Hotel(serializers.ModelSerializer):
+     class Meta:
+        model = Hotel
+        fields = "__all__"
+
+        def create(self, validated_data):
+            instance = self.Meta.model(**validated_data)
+            instance.save()
+            return instance
+
+# Add Booking
+class Booking(serializers.ModelSerializer):
+     class Meta:
+        model = Booking
+        fields = "__all__"
+
+        def create(self, validated_data):
+            instance = self.Meta.model(**validated_data)
+            instance.save()
+            return instance
+    
