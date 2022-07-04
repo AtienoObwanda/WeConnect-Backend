@@ -72,8 +72,13 @@ class CustomerOnlyView(generics.RetrieveAPIView):
 
 #Create Hotel
 class AddHotel(APIView):
+    def get(self, request, format=None):
+        hotels = Hotel.objects.all()
+        serializer = HotelSerializer(hotels, many=True)
+        return Response(serializer.data)
     def post(self, request, format=None):
         serializer = HotelSerializer(data=request.data)
+        # request.data['admin'] = request.user.id 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

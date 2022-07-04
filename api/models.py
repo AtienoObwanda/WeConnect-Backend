@@ -25,7 +25,7 @@ class owner(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     def __str__(self):
-        return self.username
+        return self.user.username
 
 
 class Customer(models.Model):
