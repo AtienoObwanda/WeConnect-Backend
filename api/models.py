@@ -48,7 +48,8 @@ class Facility(models.Model):
 class Hotel (models.Model):
     hotel_name = models.CharField(max_length=100)
     description = models.TextField(blank= True)
-    facility = models.ForeignKey(Facility,  on_delete=models.CASCADE)
+    # facility = models.ManyToManyField(Facility)
+    Hfacilities = models.ForeignKey(Facility,  on_delete=models.CASCADE,  related_name='facilities')
     # bookings = models.CharField(max_length=100)
     cover_image = models.ImageField(upload_to='images/')
     admin = models.ForeignKey(owner, on_delete=models.CASCADE)

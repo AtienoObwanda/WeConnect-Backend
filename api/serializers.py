@@ -83,36 +83,45 @@ class RoomSerializer(serializers.ModelSerializer):
 # Add Hotel
 class FacSerializer(serializers.ModelSerializer):
    
-    class Meta:
-        model=Facility
-        fields=['facility_name']
+        class Meta:
+            model = Facility
+            fields = "__all__"
 
 class HotelSerializer(serializers.ModelSerializer):
-    # admin = serializers.HiddenField(default=serializers.CurrentUserDefault())
+   
     admin  = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), # Or User.objects.filter(active=True)
         required=False, 
         allow_null=True, 
         default=None)
-    facility = FacSerializer()
     
-    # def validate_admin(self, value):
-    #     return self.context['request'].user
-
+    # facility = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=Facility.objects.all())
+    Hfacilities = serializers.HyperlinkedRelatedField(
+        many=True, read_only=True, view_name='facility-detail')
     class Meta:
         model = Hotel
-        fields = (
-            'hotel_name',
-            'description',
-            'facility',
-            'cover_image',
-            'admin'
-        )
+        fields = "__all__"
 
-        def create(self, validated_data):
-            instance = self.Meta.model(**validated_data)
-            instance.save()
-            return instance
+    # def create(self, validated_data):
+    #     facs = validated_data.pop('facility')
+    #     hotel = Hotel.objects.create(**validated_data)
+    #     for fac in facs:
+    #         Hotel.objects.create(user=hotel,**fac)
+    #     return hotel
+
+    
+
+    # class Meta:
+    #         model = Hotel
+    #         fields = ('hotel_name','description', 'facility','cover_image', 'admin'
+    #         )
+    
+
+    # def create(self, validated_data):
+            
+    #         instance = self.Meta.model(**validated_data)
+    #         instance.save()
+    #         return instance
 
 # Add Booking
 class BookingSerializer(serializers.ModelSerializer):
