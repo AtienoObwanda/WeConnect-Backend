@@ -74,6 +74,7 @@ class CustomerOnlyView(generics.RetrieveAPIView):
 class AddHotel(APIView):
     def get(self, request, format=None):
         hotels = Hotel.objects.all()
+        # admin = request.user.owner
         serializer = HotelSerializer(hotels, many=True)
         return Response(serializer.data)
     def post(self, request, format=None):

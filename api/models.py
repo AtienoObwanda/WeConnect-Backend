@@ -48,9 +48,12 @@ class Facility(models.Model):
 class Hotel (models.Model):
     hotel_name = models.CharField(max_length=100)
     description = models.TextField(blank= True)
-    # facility = models.ManyToManyField(Facility)
-    Hfacilities = models.ForeignKey(Facility,  on_delete=models.CASCADE,  related_name='facilities')
     # bookings = models.CharField(max_length=100)
+    facility1 = models.CharField(max_length=30, blank=True, null=True)
+    facility2 = models.CharField(max_length=30, blank=True, null=True)
+    facility3 = models.CharField(max_length=30, blank=True, null=True)
+    facility4 = models.CharField(max_length=30, blank=True, null=True)
+    facility5= models.CharField(max_length=30, blank=True, null=True)
     cover_image = models.ImageField(upload_to='images/')
     admin = models.ForeignKey(owner, on_delete=models.CASCADE)
    
@@ -91,6 +94,6 @@ class Booking(models.Model):
     user =  models.ManyToManyField(Customer, related_name='bookings')
     date = models.DateTimeField(auto_now_add=True)
     
-    def __str__(self):
-        return self.hotels                    
+    # def __str__(self):
+    #     return self.date                  
     
