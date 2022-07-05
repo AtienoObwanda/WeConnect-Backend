@@ -94,34 +94,15 @@ class HotelSerializer(serializers.ModelSerializer):
         required=False, 
         allow_null=True, 
         default=None)
-    
-    # facility = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=Facility.objects.all())
-    Hfacilities = serializers.HyperlinkedRelatedField(
-        many=True, read_only=True, view_name='facility-detail')
     class Meta:
         model = Hotel
         fields = "__all__"
-
-    # def create(self, validated_data):
-    #     facs = validated_data.pop('facility')
-    #     hotel = Hotel.objects.create(**validated_data)
-    #     for fac in facs:
-    #         Hotel.objects.create(user=hotel,**fac)
-    #     return hotel
-
-    
-
-    # class Meta:
-    #         model = Hotel
-    #         fields = ('hotel_name','description', 'facility','cover_image', 'admin'
-    #         )
-    
-
-    # def create(self, validated_data):
-            
-    #         instance = self.Meta.model(**validated_data)
-    #         instance.save()
-    #         return instance
+        
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+   
 
 # Add Booking
 class BookingSerializer(serializers.ModelSerializer):
