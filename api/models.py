@@ -54,6 +54,23 @@ class Hotel (models.Model):
     facility3 = models.CharField(max_length=30, blank=True, null=True)
     facility4 = models.CharField(max_length=30, blank=True, null=True)
     facility5= models.CharField(max_length=30, blank=True, null=True)
+
+    room1 =  models.CharField(max_length=30, blank=True, null=True)
+    room1_cover = models.ImageField(upload_to='images/', blank=True, null=True)
+    room1_rate = models.PositiveIntegerField(blank=True, null=True)
+
+    room2 = models.CharField(max_length=30, blank=True, null=True)
+    room2_cover = models.ImageField(upload_to='images/', blank=True, null=True)
+    room2_rate = models.PositiveIntegerField(blank=True, null=True)
+
+    room3 =  models.CharField(max_length=30, blank=True, null=True)
+    room3_cover = models.ImageField(upload_to='images/',blank=True, null=True)
+    room3_rate = models.PositiveIntegerField(blank=True, null=True)
+
+    room4 =  models.CharField(max_length=30, blank=True, null=True)
+    room4_cover = models.ImageField(upload_to='images/', blank=True, null=True)
+    room4_rate = models.PositiveIntegerField(blank=True, null=True)
+
     cover_image = models.ImageField(upload_to='images/')
     admin = models.ForeignKey(owner, on_delete=models.CASCADE)
    

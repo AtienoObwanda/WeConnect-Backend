@@ -81,12 +81,6 @@ class RoomSerializer(serializers.ModelSerializer):
             instance.save()
             return instance
 # Add Hotel
-class FacSerializer(serializers.ModelSerializer):
-   
-        class Meta:
-            model = Facility
-            fields = "__all__"
-
 class HotelSerializer(serializers.ModelSerializer):
    
     admin  = serializers.PrimaryKeyRelatedField(
