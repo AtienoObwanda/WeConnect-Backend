@@ -81,38 +81,22 @@ class RoomSerializer(serializers.ModelSerializer):
             instance.save()
             return instance
 # Add Hotel
-class FacSerializer(serializers.ModelSerializer):
-   
-    class Meta:
-        model=Facility
-        fields=['facility_name']
-
 class HotelSerializer(serializers.ModelSerializer):
-    # admin = serializers.HiddenField(default=serializers.CurrentUserDefault())
+   
     admin  = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), # Or User.objects.filter(active=True)
         required=False, 
         allow_null=True, 
         default=None)
-    facility = FacSerializer()
-    
-    # def validate_admin(self, value):
-    #     return self.context['request'].user
-
     class Meta:
         model = Hotel
-        fields = (
-            'hotel_name',
-            'description',
-            'facility',
-            'cover_image',
-            'admin'
-        )
-
-        def create(self, validated_data):
-            instance = self.Meta.model(**validated_data)
-            instance.save()
-            return instance
+        fields = "__all__"
+        
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+   
 
 # Add Booking
 class BookingSerializer(serializers.ModelSerializer):
