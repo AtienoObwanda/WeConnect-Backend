@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from . import views
 from .views import (CustomerSignupView, HotelAdminSignupView, AddHotel, GetHotel,  HotelList,
-DeleteHotel, UpdateHotel, AddRoom,
+DeleteHotel, UpdateHotel, AddRoom,AddBooking,
  CustomAuthToken, LogoutView, AdminOnlyView, CustomerOnlyView)
 
 urlpatterns = [
@@ -22,9 +22,12 @@ urlpatterns = [
 
     path('delete-hotel/<int:pk>/', DeleteHotel.as_view(), name=' deleteHotel'),
     path('update-hotel/<int:pk>/', UpdateHotel.as_view(), name='updateHotel'),
-    path('new-hotel', AddHotel.as_view(), name='newHotel'),
+    
+    path('new-hotel', AddHotel.as_view(), name='newHotel'), # Configure api request => to be configured inside admindashboard
 
-    path('new-room', AddRoom.as_view(), name='newRoom'),
+    path('new-room', AddRoom.as_view(), name='newRoom'), # Configure api request => to be configured inside admindashboard
+
+    path('new-booking', AddBooking.as_view(), name='newBooking'), # Configure api request-to be configured inside customer dashboard
 
 
 ]
