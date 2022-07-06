@@ -1,12 +1,20 @@
+from dataclasses import field
+from pyexpat import model
 from rest_framework import serializers
 
 from api.models import User, Customer, owner, Facility, Hotel, Rooms, Booking
+
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
         fields=['username', 'email', 'is_owner']
+
+class regSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        field = 'email'
 
 class CustomerSignupSerializer(serializers.ModelSerializer):
     password2=serializers.CharField(style={"input_type":"password"}, write_only=True)

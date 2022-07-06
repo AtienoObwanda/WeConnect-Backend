@@ -4,12 +4,34 @@ from django.http import Http404, request
 from rest_framework import generics, permissions, status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from .serializers import CustomerSignupSerializer, HotelAdminSignupSerializer, UserSerializer, HotelSerializer, FacilitySerializer, RoomSerializer, BookingSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from .permissions import IsCustomerUser, IsHotelAdminUser
+import sendgrid
+from sendgrid.helpers.mail import (Mail, Email,Personalization)
+from python_http_client import exceptions
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
+from .serializers import CustomerSignupSerializer, HotelAdminSignupSerializer, UserSerializer, HotelSerializer,RoomSerializer, BookingSerializer, regSerializer
 from .models import *
+
+def confirmReg():
+    message = Mail(
+        from_email='communications.weconnect@gmail.com"',
+        to_emails= request.user.email,
+        subject='we Connect Account Created Successfully!',
+        html_content='<strong>and easy to do anywhere, even with Python</strong>')
+    try:
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(e.message)
 
 class CustomerSignupView(generics.GenericAPIView):
     serializer_class=CustomerSignupSerializer
@@ -17,6 +39,7 @@ class CustomerSignupView(generics.GenericAPIView):
         serializer=self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user=serializer.save()
+        # confirmReg()
         return Response({
             "user":UserSerializer(user, context=self.get_serializer_context()).data,
             "token":Token.objects.get(user=user).key,
