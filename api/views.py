@@ -1,6 +1,5 @@
+from curses import ALL_MOUSE_EVENTS
 from django.shortcuts import render
-
-
 from django.http import Http404, request
 from rest_framework import generics, permissions, status
 from rest_framework.authtoken.models import Token
@@ -8,7 +7,7 @@ from rest_framework.response import Response
 from .serializers import CustomerSignupSerializer, HotelAdminSignupSerializer, UserSerializer, HotelSerializer, FacilitySerializer, RoomSerializer, BookingSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.views import APIView
-
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from .permissions import IsCustomerUser, IsHotelAdminUser
 from .models import *
 
@@ -137,21 +136,6 @@ class GetHotel(APIView):
         # serializer = RoomSerializer(rooms)
         return Response(serializer.data)
 
-#Create Room
-class AddRoom(APIView):
-    def post(self, request, format=None):
-        serializer = RoomSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-
-# Fetch Room information
-
-# Update Room information
-
-# Delete Room information
-
 
 #Create Facility 
 class AddFacility(APIView):
@@ -171,19 +155,46 @@ class AddFacility(APIView):
 
 
 #Create Booking
-class AddBooking(APIView):
-    def post(self, request, format=None):
-        serializer = BookingSerializer(data=request.data)
+class AddBooking(CreateAPIView):
+    serializer_class = BookingSerializer
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save() # user=request.user.customer,
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # Fetch Booking information
 
 # Update Booking information
 
 # Delete Booking information
+
+#Create Room
+class AddRoom(CreateAPIView):
+    serializer_class= RoomSerializer
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # def post(self, request, format=None):
+    #     serializer = RoomSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+# Fetch Room information
+
+# Update Room information
+
+# Delete Room information
 
 
 

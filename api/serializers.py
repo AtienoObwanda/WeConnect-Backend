@@ -70,16 +70,7 @@ class FacilitySerializer(serializers.ModelSerializer):
             instance.save()
             return instance
 
-# Add Rooms
-class RoomSerializer(serializers.ModelSerializer):
-     class Meta:
-        model = Rooms
-        fields = "__all__"
 
-        def create(self, validated_data):
-            instance = self.Meta.model(**validated_data)
-            instance.save()
-            return instance
 # Add Hotel
 class HotelSerializer(serializers.ModelSerializer):
    
@@ -100,12 +91,19 @@ class HotelSerializer(serializers.ModelSerializer):
 
 # Add Booking
 class BookingSerializer(serializers.ModelSerializer):
+    # user = serializers.SlugRelatedField(slug_field='username', read_only=True)
     class Meta:
         model = Booking
         fields = "__all__"
 
-        def create(self, validated_data):
-            instance = self.Meta.model(**validated_data)
-            instance.save()
-            return instance
-    
+    #     def create(self, validated_data):
+    #         instance = self.Meta.model(**validated_data)
+    #         instance.save()
+    #         return instance
+# Add Rooms
+class RoomSerializer(serializers.ModelSerializer):
+    # hotel = serializers.SlugRelatedField(slug_field='hotel_name', read_only=True)
+
+    class Meta:
+        model = Rooms
+        fields = "__all__"
