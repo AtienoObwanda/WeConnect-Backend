@@ -70,19 +70,15 @@ class CustomerOnlyView(generics.RetrieveAPIView):
         return self.request.user
 
 #Create Hotel
-class AddHotel(APIView):
-    def get(self, request, format=None):
-        hotels = Hotel.objects.all()
-        # admin = request.user.owner
-        serializer = HotelSerializer(hotels, many=True)
-        return Response(serializer.data)
-    def post(self, request, format=None):
-        serializer = HotelSerializer(data=request.data)
-        # request.data['admin'] = request.user.id 
+class AddHotel(CreateAPIView):
+    serializer_class = HotelSerializer
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save() # user=request.user.customer,
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Fetch all Hotel information
 class HotelList(APIView):
@@ -135,24 +131,6 @@ class GetHotel(APIView):
         serializer = HotelSerializer(hotel) #, RoomSerializer(rooms)
         # serializer = RoomSerializer(rooms)
         return Response(serializer.data)
-
-
-#Create Facility 
-class AddFacility(APIView):
-    def post(self, request, format=None):
-        serializer = FacilitySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# Fetch Facility information
-
-# Update Facility information
-
-# Delete Facility information
-
-
 
 #Create Booking
 class AddBooking(CreateAPIView):
