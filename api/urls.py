@@ -5,6 +5,9 @@ from .views import (CustomerSignupView, HotelAdminSignupView, AddHotel, GetHotel
 DeleteHotel, UpdateHotel, AddRoom,AddBooking,
  CustomAuthToken, LogoutView, AdminOnlyView, CustomerOnlyView)
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
    
     path('', views.home),
@@ -17,17 +20,21 @@ urlpatterns = [
     
     path('admin/dashboard/', AdminOnlyView.as_view(), name='admin-dashboard'),
 
-    path('hotels/', HotelList.as_view(), name='hotels'), # Configure api request
     path('hotel-detail/<int:pk>/', GetHotel.as_view(), name='hotel-detail'), # Configure api request
 
     path('delete-hotel/<int:pk>/', DeleteHotel.as_view(), name=' deleteHotel'),
     path('update-hotel/<int:pk>/', UpdateHotel.as_view(), name='updateHotel'),
     
-    path('new-hotel', AddHotel.as_view(), name='newHotel'), # Configure api request => to be configured inside admindashboard
+    path('new-hotel/', AddHotel.as_view(), name='newHotel'), # Configure api request => to be configured inside admindashboard
 
-    path('new-room', AddRoom.as_view(), name='newRoom'), # Configure api request => to be configured inside admindashboard
+    path('new-room/', AddRoom.as_view(), name='newRoom'), # Configure api request => to be configured inside admindashboard
 
-    path('new-booking', AddBooking.as_view(), name='newBooking'), # Configure api request-to be configured inside customer dashboard
+    path('new-booking/', AddBooking.as_view(), name='newBooking'), # Configure api request-to be configured inside customer dashboard
+    
+    path('hotels/', HotelList.as_view(), name='hotels'), # Configure api request
 
 
 ]
+if settings.DEBUG:
+    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    # urlpatterns+= [path('hotels',  HotelList.as_view(), name='hotels'),] # accepts any urls otherthan above 

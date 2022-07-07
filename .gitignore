@@ -2,3 +2,6 @@ virtual/
 env/
 venv/
 api/migrationssendgrid.env
+sendgrid.env
+
+
