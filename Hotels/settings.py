@@ -32,6 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,11 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'cloudinary',
     'cloudinary_storage',
     'bootstrap4',
     'api',
-    
+    "corsheaders",
+
 ]
 
 MIDDLEWARE = [
@@ -56,7 +60,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS=True
+
+CORS_ORIGIN_WHITELIST = [
+# Add domains,
+'http://localhost:4200' ]
 
 ROOT_URLCONF = 'Hotels.urls'
 
@@ -109,6 +121,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+AUTH_USER_MODEL = 'api.User'
+ACCOUNT_UNIQUE_EMAIL=True
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -125,16 +148,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
 
-MEDIA_URL='/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+
+
+
+# Twilio Sendgrid API key
+
+
+# setting default email for sending email through sendgrid
+
+cloudinary.config( 
+  cloud_name = "dyiuol5sx", 
+  api_key = "226889347825597", 
+  api_secret = "gq5g9UhQzFd36mDRLqcOoIeEoOY" 
+)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME' : "dyiuol5sx",
+    'API_KEY' : "226889347825597",
+    'API_SECRET' : "gq5g9UhQzFd36mDRLqcOoIeEoOY",
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
