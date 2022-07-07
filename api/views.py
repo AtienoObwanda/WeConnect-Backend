@@ -85,12 +85,23 @@ class AdminOnlyView(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
 
-class CustomerOnlyView(generics.RetrieveAPIView):
-    permission_classes=[permissions.IsAuthenticated&IsCustomerUser]
+# class CustomerOnlyView(generics.RetrieveAPIView):
+class CustomerOnlyView(APIView):
+    # permission_classes=[permissions.IsAuthenticated&IsCustomerUser]
     serializer_class=UserSerializer
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
 
-    def get_object(self):
-        return self.request.user
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user) 
+        return Response(serializer.data)
+
+    # def get_object(self):
+    #     return self.request.user
 
 #Create Hotel
 class AddHotel(CreateAPIView):
