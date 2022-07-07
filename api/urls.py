@@ -16,8 +16,8 @@ urlpatterns = [
     path('login/',CustomAuthToken.as_view(), name='auth-token'),
     path('logout/', LogoutView.as_view(), name='logout-view'),
 
-    # path('customer/dashboard/<int:pk>/', CustomerOnlyView.as_view(), name='customer-dashboard'),
-    path('customer/dashboard/', CustomerOnlyView.as_view(), name='customer-dashboard'),
+    path('customer/dashboard/<int:pk>/', CustomerOnlyView.as_view(), name='customer-dashboard'),
+    # path('customer/dashboard/', CustomerOnlyView.as_view(), name='customer-dashboard'),
 
     path('admin/dashboard/', AdminOnlyView.as_view(), name='admin-dashboard'),
 
