@@ -27,7 +27,7 @@ urlpatterns = [
 
     path('new-room', AddRoom.as_view(), name='newRoom'), # Configure api request => to be configured inside admindashboard
 
-    path('new-booking', AddBooking.as_view(), name='newBooking'), # Configure api request-to be configured inside customer dashboard
+    path('new-booking/', AddBooking.as_view(), name='newBooking'), # Configure api request-to be configured inside customer dashboard
 
 
 ]
