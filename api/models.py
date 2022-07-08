@@ -110,10 +110,10 @@ class Booking(models.Model):
     amount = models.ForeignKey(Rooms,  on_delete=models.CASCADE)
     user =  models.ManyToManyField(Customer, related_name='bookings')
     date = models.DateTimeField(auto_now_add=True)
-    phone = models.IntegerField(blank=True, null=True)
-    no_of_room = models.PositiveSmallIntegerField(default=1)
-    check_in= models.DateTimeField(auto_now_add=True)
-    check_out = models.DateTimeField(auto_now_add=True)
+    # phone = models.IntegerField(blank=True, null=True)
+    # no_of_room = models.PositiveSmallIntegerField(default=1)
+    # check_in= models.DateTimeField(auto_now_add=True)
+    # check_out = models.DateTimeField(auto_now_add=True)
     
     # def __str__(self):
     #     return self.date                  
