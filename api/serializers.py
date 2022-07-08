@@ -13,7 +13,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=['username', 'email', 'is_owner']
+        fields=['id','username', 'email', 'is_owner']
 
 class regSerializer(serializers.ModelSerializer):
     class Meta:
