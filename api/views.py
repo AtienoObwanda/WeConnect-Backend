@@ -15,7 +15,7 @@ import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
-from .serializers import CustomerSignupSerializer, HotelAdminSignupSerializer, UserSerializer, HotelSerializer,RoomSerializer, BookingSerializer, regSerializer
+from .serializers import CustomerSignupSerializer,UserProfileSerializer, HotelAdminSignupSerializer, UserSerializer, HotelSerializer,RoomSerializer, BookingSerializer, regSerializer
 from .models import *
 
 def confirmReg():
@@ -88,7 +88,7 @@ class AdminOnlyView(generics.RetrieveAPIView):
 # class CustomerOnlyView(generics.RetrieveAPIView):
 class CustomerOnlyView(APIView):
     # permission_classes=[permissions.IsAuthenticated&IsCustomerUser]
-    serializer_class=UserSerializer
+    serializer_class=UserProfileSerializer
     def get_object(self, pk):
         try:
             return User.objects.get(pk=pk)
@@ -97,7 +97,7 @@ class CustomerOnlyView(APIView):
 
     def get(self, request, pk, format=None):
         user = self.get_object(pk)
-        serializer = UserSerializer(user) 
+        serializer = UserProfileSerializer(user) 
         return Response(serializer.data)
 
     # def get_object(self):
