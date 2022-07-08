@@ -8,7 +8,7 @@ from api.models import User, Customer, owner, Facility, Hotel, Rooms, Booking
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
-        fields=['__all__']
+        fields=['id','username', 'email', 'is_owner']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
