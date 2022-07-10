@@ -112,8 +112,8 @@ class Room (models.Model):
         self.save
 
 class Booking(models.Model):
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    amount = models.ForeignKey(Room,  on_delete=models.CASCADE)
+    # hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    # amount = models.ForeignKey(Room,  on_delete=models.CASCADE)
     user =  models.ManyToManyField(Customer, related_name='bookings')
     date = models.DateTimeField(auto_now_add=True)
     # phone = models.IntegerField(blank=True, null=True)
