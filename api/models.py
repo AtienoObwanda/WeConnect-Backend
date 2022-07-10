@@ -124,5 +124,5 @@ class Booking(models.Model):
     check_out = models.DateTimeField()
     
     def __str__(self):
-        return f'{self.amount} room , from {self.hotel} hotel has been booked'            
+        return f'{self.date}'           
     
