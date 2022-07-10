@@ -1,0 +1,10 @@
+@font-face{
+    font-family: Newyork;
+    src: local('Newyork'),url('../fonts/NewYork.otf')
+    format("truetype");
+  }
+  @font-face{
+    font-family: Gotham Pro;
+    src: local('Gotham Pro'),url('../fonts/GothamProRegular.ttf')
+    format("truetype");
+  }
