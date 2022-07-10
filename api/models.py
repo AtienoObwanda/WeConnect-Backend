@@ -10,6 +10,10 @@ from rest_framework.authtoken.models import Token
 class User(AbstractUser):
     is_owner = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email=models.EmailField()
+    contact = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self) :
         return self.username
@@ -22,17 +26,15 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 class owner(models.Model):
     user = models.OneToOneField(User, related_name='owner', on_delete = models.CASCADE, primary_key = True)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
+    
     def __str__(self):
         return self.user.username
 
 
 class Customer(models.Model):
     user = models.OneToOneField(User, related_name='customer', on_delete = models.CASCADE, primary_key = True)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-    contact = models.IntegerField(blank=True, null=True)
+
+    
     # bookings = models.ForeignKey(Bookings, null=True, on_delete=models.CASCADE)
     def __str__(self):
             return self.user.username

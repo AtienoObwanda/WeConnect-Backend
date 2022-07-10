@@ -1,6 +1,7 @@
 from dataclasses import field
 from pyexpat import model
 from rest_framework import serializers
+from django.db import transaction
 
 from api.models import User, Customer, owner, Facility, Hotel, Room, Booking
 
@@ -29,21 +30,33 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
             'password':{'write_only':True}
         }
     
-    def save(self, **kwargs):
-        user=User(
-            username=self.validated_data['username'],
-            email=self.validated_data['email']
-        )
-        # 'name','contact',
-        password=self.validated_data['password']
-        password2=self.validated_data['password2']
-        if password !=password2:
-            raise serializers.ValidationError({"error":"password do not match"})
-        user.set_password(password)
-        user.is_customer=True
-        user.save()
-        Customer.objects.create(user=user)
+    # def save(self, **kwargs):
+    #     user=User(
+    #         username=self.validated_data['username'],
+    #         email=self.validated_data['email']
+    #     )
+    #     # 'name','contact',
+    #     password=self.validated_data['password']
+    #     password2=self.validated_data['password2']
+    #     if password !=password2:
+    #         raise serializers.ValidationError({"error":"password do not match"})
+    #     user.set_password(password)
+    #     user.is_customer=True
+    #     user.save()
+    #     Customer.objects.create(user=user)
+    #     return user
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        user = super().save(commit=False)
+        user.is_customer = True
+        user.first_name = self.cleaned_data.get('first_name')
+        user.last_name = self.cleaned_data.get('last_name')
+        user.email = self.cleaned_data.get('email')
+        user.save() 
+        customer = Customer.objects.create(user=user)
+        customer.save()
         return user
+
 
 
 class HotelAdminSignupSerializer(serializers.ModelSerializer):
