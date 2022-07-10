@@ -10,10 +10,10 @@ from rest_framework.authtoken.models import Token
 class User(AbstractUser):
     is_owner = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email=models.EmailField()
-    contact = models.PositiveIntegerField(blank=True, null=True)
+    # first_name = models.CharField(max_length=100)
+    # last_name = models.CharField(max_length=100)
+    # email=models.EmailField()
+    # contact = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self) :
         return self.username
