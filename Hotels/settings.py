@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     # 'api',
     "corsheaders",
+    'app',
 
 ]
 
