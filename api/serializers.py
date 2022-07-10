@@ -28,21 +28,21 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
             'password':{'write_only':True}
         }
     
-    # def save(self, **kwargs):
-    #     user=User(
-    #         username=self.validated_data['username'],
-    #         email=self.validated_data['email']
-    #     )
-    #     # 'name','contact',
-    #     password=self.validated_data['password']
-    #     password2=self.validated_data['password2']
-    #     if password !=password2:
-    #         raise serializers.ValidationError({"error":"password do not match"})
-    #     user.set_password(password)
-    #     user.is_customer=True
-    #     user.save()
-    #     Customer.objects.create(user=user)
-    #     return user
+    def save(self, **kwargs):
+        user=User(
+            username=self.validated_data['username'],
+            email=self.validated_data['email']
+        )
+        # 'name','contact',
+        password=self.validated_data['password']
+        password2=self.validated_data['password2']
+        if password !=password2:
+            raise serializers.ValidationError({"error":"password do not match"})
+        user.set_password(password)
+        user.is_customer=True
+        user.save()
+        Customer.objects.create(user=user)
+        return user
     @transaction.atomic
     def save(self, *args, **kwargs):
         user = User(
@@ -51,9 +51,7 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
             
 
         )
-        # contact =self.validated_data['contact'],
-        # first_name = self.validated_data['first_name'],
-        # last_name = self.validated_data['last_name'],
+     
         password=self.validated_data['password']
         password2=self.validated_data['password2']
         if password !=password2:
@@ -116,7 +114,8 @@ class HotelSerializer(serializers.ModelSerializer):
 
 # Add Booking
 class BookingSerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(slug_field='user', read_only=True)
+    # user = serializers.SlugRelatedField(slug_field='user', read_only=True)
+    user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Booking

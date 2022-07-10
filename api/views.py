@@ -173,11 +173,17 @@ class AddBooking(CreateAPIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user.customer) # user=request.user.customer,
+            serializer.save() # user=request.user.customer,
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+#Fetch all booking
+class BookingList(APIView):
+    def get(self, request, format=None):
+        bookings = Booking.objects.all()
+        serializer = BookingSerializer(bookings, many=True)
+        return Response(serializer.data)
 
 # Fetch Booking information
 

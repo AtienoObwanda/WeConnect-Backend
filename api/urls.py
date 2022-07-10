@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from . import views
 from .views import (CustomerSignupView, HotelAdminSignupView, AddHotel, GetHotel,  HotelList,
-DeleteHotel, UpdateHotel, AddRoom,AddBooking,
+DeleteHotel, UpdateHotel, AddRoom,AddBooking,BookingList,
  CustomAuthToken, LogoutView, AdminOnlyView, CustomerOnlyView)
 
 from django.conf.urls.static import static
@@ -33,6 +33,8 @@ urlpatterns = [
     path('new-booking/', AddBooking.as_view(), name='newBooking'), # Configure api request-to be configured inside customer dashboard
     
     path('hotels/', HotelList.as_view(), name='hotels'), # Configure api request
+    path('bookings/', BookingList.as_view(), name='bookings'), # Configure api request
+
 
 
 ]
