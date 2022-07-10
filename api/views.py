@@ -161,7 +161,7 @@ class GetHotel(APIView):
 
     def get(self, request, pk, format=None):
         hotel = self.get_object(pk)
-        rooms = Rooms.objects.filter(hotel=hotel.id).all()
+        rooms = Room.objects.filter(hotel=hotel.id).all()
         serializer = HotelSerializer(hotel) #, RoomSerializer(rooms)
         # serializer = RoomSerializer(rooms)
         return Response(serializer.data)

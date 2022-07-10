@@ -2,7 +2,7 @@ from dataclasses import field
 from pyexpat import model
 from rest_framework import serializers
 
-from api.models import User, Customer, owner, Facility, Hotel, Rooms, Booking
+from api.models import User, Customer, owner, Facility, Hotel, Room, Booking
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -105,5 +105,5 @@ class RoomSerializer(serializers.ModelSerializer):
     # hotel = serializers.SlugRelatedField(slug_field='hotel_name', read_only=True)
 
     class Meta:
-        model = Rooms
+        model = Room
         fields = "__all__"
