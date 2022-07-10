@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'bootstrap4',
-    'api',
+    # 'api',
     "corsheaders",
 
 ]
@@ -127,8 +127,8 @@ REST_FRAMEWORK = {
     ]
 }
 
-AUTH_USER_MODEL = 'api.User'
-ACCOUNT_UNIQUE_EMAIL=True
+# AUTH_USER_MODEL = 'api.User'
+# ACCOUNT_UNIQUE_EMAIL=True
 
 
 
