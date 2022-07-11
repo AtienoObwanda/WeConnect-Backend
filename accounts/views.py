@@ -55,7 +55,7 @@ class AdminReg(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('login')    
+        return redirect('admin-login')    
 
 def loginAdmin(request):
     if request.method=='POST':
