@@ -15,9 +15,11 @@ from accounts.models import *
 
 def clientDashboard(request):
     currentUser = request.user.client
+    activeBookings = Bookings.objects.filter(user=currentUser.pk).all()
+
 
     
-    return render(request, 'client.html')
+    return render(request, 'client.html', {'activeBookings': activeBookings})
 
 class addBooking(LoginRequiredMixin, CreateView):
     model = Bookings
