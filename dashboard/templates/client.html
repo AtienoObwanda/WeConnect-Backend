@@ -85,8 +85,12 @@
                         <div class="box me-4 my-1 bg-light">
                            
                             <div class="d-flex align-items-center mt-2">
-                                <div class="tag">Resrvations:</div>
-                                <div class="ms-auto number">10</div>
+                                <div class="tag">Reservations:</div>
+                                {% if activeBookings %}
+                                {{activeBookings|length}}
+                                {% else %}
+                                0
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -104,7 +108,7 @@
                                     <div class="fs-8">Amount: {{activeBooking.amount.rate}}</div>
 
                                     <div class="fs-8">Check In: {{activeBooking.check_in |date}} | {{activeBooking.check_in |time}}</div>
-                                    <div class="fs-8">Check In: {{activeBooking.check_out |date}} | {{activeBooking.check_out |time}}</div>
+                                    <div class="fs-8">Check Out: {{activeBooking.check_out |date}} | {{activeBooking.check_out |time}}</div>
 
                                 </div>
                             </div>

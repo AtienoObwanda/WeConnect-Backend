@@ -32,7 +32,7 @@
         <a class="navbar-brand fw-bold fs-3"></a>
         <a class="navbar-brand fw-bold fs-3"></a>
         <a class="navbar-brand fw-bold fs-3"></a>
-          <a class="navbar-brand fw-bold fs-3" href="#" style="color:#000;">
+          <a class="navbar-brand fw-bold fs-3" href="{% url 'home' %}" style="color:#000;">
             We
             <span><br>Connect</span>
             
@@ -45,21 +45,23 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                      <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="#">HOME</a>
+                      <a class="nav-link pe-3 me-4 fw-bold active" aria-current="page" href="{% url 'home' %}">HOME</a>
                   </li>
                   
                   <li class="nav-item">
-                      <a class="nav-link pe-3 me-4 fw-bold" href="/hotels">HOTELS</a>
+                      <a class="nav-link pe-3 me-4 fw-bold" href="{% url 'hotels' %}">HOTELS</a>
+                  </li>
+                  {% if user.is_authenticated %}
+
+                  <li class="nav-item">
+                      <a class="nav-link pe-3 me-4 fw-bold" href="{% url 'profile' %}">My Profile</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link pe-3 me-4 fw-bold" href="#">BLOG</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link pe-3 me-4 fw-bold" href="#">CONTACT</a>
+                      <a class="nav-link pe-3 me-4 fw-bold" href="{% url 'clientDashboard' %}">My Dashboard</a>
                   </li>
               </ul>
 
-              {% if user.is_authenticated %}
+              
                
               <a class="navbar-logo ml-2" href="{% url 'logout' %}" class="text-center" style="color:black;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
