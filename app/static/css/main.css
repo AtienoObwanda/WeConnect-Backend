@@ -41,7 +41,7 @@ body {
   min-height: 500px;
   max-width: 100%;
   overflow-x: hidden;
-  background-image: url('../../assets/hote.webp');
+  background-image: url('../assets/hote.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

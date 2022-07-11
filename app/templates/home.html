@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +16,9 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
   </head>  
   <body>
 <div class="mask">
@@ -38,7 +43,7 @@
     <div class="col-md-4 col-lg-4 mt-2">
       <div class="p-2 bg-white">
           <div class="d-flex flex-column">
-              <div><img class="img-fluid img-responsive" src="./assets/towel.webp" width="400" height="100"></div>
+              <div><img class="img-fluid img-responsive" src=".././static/assets/towel.webp" width="400" height="100"></div>
              
           </div>
       </div>
@@ -47,7 +52,7 @@
   <div class="col-md-4 col-lg-4 mt-2">
     <div class="p-2 bg-white">
         <div class="d-flex flex-column">
-            <div><img class="img-fluid img-responsive" src="./assets/food.webp" width="400" height="100"></div>
+            <div><img class="img-fluid img-responsive" src=".././static/assets/food.webp" width="400" height="100"></div>
             
         </div>
     </div>
@@ -55,8 +60,8 @@
 <div class="col-md-4 col-lg-4 mt-2">
   <div class="p-2 bg-white">
       <div class="d-flex flex-column">
-          <div><img class="img-fluid img-responsive" src="./assets/pool.webp" width="400" height="100"></div>
-         
+          <div><img class="img-fluid img-responsive" src=".././static/assets/pool.webp" width="400" height="100"></div>
+
       </div>
   </div>
 </div>
@@ -82,7 +87,7 @@
       <div class="col-md-5 drop-cap-text"> 
         <span class="drop-cap">
           <span class="drop-cap-letter">
-            E</span></span>ver wanted to book a hotel but didnât know how to go about it?
+            E</span></span>ver wanted to book a hotel but didn't know how to go about it?
   </div> 
 </div> 
 </div> 
@@ -98,8 +103,8 @@
             
             <div class="user-image">
                 
-        <img src="../../assets/jojo.jpg" class="rounded-circle" width="80"
-                >
+                <img src=".././static/assets/jojo.jpg" class="rounded-circle" width="80">
+
                 
             </div>
             
@@ -128,8 +133,7 @@
             
             <div class="user-image">
                 
-        <img src="../../assets/omondi.jpg" class="rounded-circle" width="80"
-                >
+                <img src=".././static/assets/omondi.jpg" class="rounded-circle" width="80">
                 
             </div>
             
@@ -223,3 +227,4 @@
 </footer>
 <!-- </div>  -->
 </body>
+{% endblock content %}
