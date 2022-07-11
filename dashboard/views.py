@@ -49,10 +49,10 @@ def addNewBooking(request, pk):
             booking.hotel = room.hotel
             booking.amount = room
             booking.save()
-            booking.user = current_user
+            booking.user.set([request.user.client])
             booking.save()
             print(room.rate)
-            return redirect('projectDetail', pk)
+            return redirect('hotelPage', pk)
     else:
         form = BookingForm()
 
