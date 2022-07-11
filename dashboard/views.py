@@ -73,21 +73,21 @@ def ownerDashboard(request):
 #   return render(request, 'hotels.html', {"hotel":hotel})
 
   
-# def new_hotel(request):
-#   current_owner = request.user.owner
-#   hotel = Hotel.objects.get(hotel_name=current_owner)
+def new_hotel(request):
+  current_owner = request.user.owner
+  hotel = Hotel.objects.get(hotel_name=current_owner)
 
-#   if request.method == 'POST':
-#     form  = HotelForm(request.POST, request.FILES)
-#     if form.is_valid():
-#       newhotel = form.save(commit = False)
-#       newhotel.username = current_owner
-#       newhotel.hotel = hotel.hotel
-#       newhotel.save()
+  if request.method == 'POST':
+    form  = HotelForm(request.POST, request.FILES)
+    if form.is_valid():
+      newhotel = form.save(commit = False)
+      newhotel.username = current_owner
+      newhotel.hotel = hotel.hotel
+      newhotel.save()
 
-#     return HttpResponseRedirect('/hotel')
+    return HttpResponseRedirect('/hotel')
 
-#   else:
-#     form = HotelForm()
+  else:
+    form = HotelForm()
 
-#   return render(request, 'posthotel.html', {"form":form})
+  return render(request, 'posthotel.html', {"form":form})
