@@ -22,3 +22,13 @@ class Client(models.Model):
 
     def __str__(self):
         return self.user.first_name
+
+class Profile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
+    bio = models.TextField()
+    address = models.CharField(max_length=50, blank=True)
+    location = models.CharField(max_length=50, blank=True)
+    profile_category = models.ForeignKey('Category',null=True, blank=True, on_delete=models.CASCADE)
+
+    def save_profile(self):
+        self.save()
