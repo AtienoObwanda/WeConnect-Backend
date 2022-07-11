@@ -9,6 +9,8 @@ urlpatterns = [
     path('hotel/admin/', views.ownerDashboard, name='ownerDashboard'),
     path('add-booking/', addBooking.as_view(), name='addBooking'),
     path('bookings/room/<int:pk>/', views.addNewBooking,name='book'),
+    # path('hotel', views.hotel, name='hotel'),
+    # path('new/hotel$', views.new_hotel, name='new-hotel'),
 
 ]
 # if settings.DEBUG:
