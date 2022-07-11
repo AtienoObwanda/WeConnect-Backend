@@ -46,3 +46,30 @@ def loginClient(request):
                 messages.error(request,"Invalid username or password")
     return render(request, 'login.html',
     context={'form':AuthenticationForm()})
+
+class AdminReg(CreateView):
+    model = User
+    form_class = OwnerRegisterForm
+    template_name = 'admin-register.html'
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('login')    
+
+def loginAdmin(request):
+    if request.method=='POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None :
+                login(request,user)
+                return redirect('ownerDashboard')
+            else:
+                messages.error(request,"Invalid username or password")
+        else:
+                messages.error(request,"Invalid username or password")
+    return render(request, 'admin-login.html',
+    context={'form':AuthenticationForm()})        
