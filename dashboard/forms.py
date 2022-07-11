@@ -9,5 +9,5 @@ class BookingForm(forms.ModelForm):
 
 class HotelForm(forms.ModelForm):
      class Meta:
-        model = Bookings
-        exclude = ['facility4', 'facility5']        
+         model = Hotel
+         fields = '__all__'
