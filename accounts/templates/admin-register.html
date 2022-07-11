@@ -1,0 +1,81 @@
+{% load widget_tweaks %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Connect </title>
+    <!--Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+ <!--CSS -->
+ 
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+
+
+
+</head>  
+<body>
+<div class="container-fluid fullp"> 
+        <div class="row no-gutter"> 
+          <div class="col-md-6 d-none d-md-flex bg-image">
+          </div> 
+          <div class="col-md-6 bg-light shadow-sm showHover" style="border-radius:16px ;"> 
+            
+            <div class="login d-flex align-items-center py-5"> 
+            <div class="container"> 
+  
+              <div class="row"> 
+                <h3 class="text-center display-4">We Connect Admin</h3> <br>                   
+  
+                <div class="col-lg-7 col-xl-6 mx-auto ">
+                  <h3 class="text-center display-4"></h3> <br>
+<form action="{% url 'register' %}" method="POST" novalidate>
+    {% csrf_token %}
+       {% for field in form.visible_fields %}
+         <div class="form-group">
+             {{ field.label_tag }}
+                {% render_field field class="form-control" %}
+                  {% for error in field.errors %}
+                    <span style="color:red">{{ error }}</span>
+                  {% endfor %}
+       {% endfor %}
+           <input type="submit" value="Register" class="btn btn-block btn-primary mt-5" style="background-color: #60D143;">
+         </div>
+         <div class="sign-up">
+            <p class="text-center">
+              <small class="text-muted">
+                Already have an account? <a style="color:#60D143; text-decoration: none;" href="{% url 'login' %}">SIGN IN</a>
+              </small>
+            </p>
+
+          </div>         <p class="text-center text-blue">Or continue with</p>
+  <div class="icons text-center">
+    <img src="../../app/static/assets/google.png" style="height:20px;margin-right: 15px;">
+    
+    <img src="../../app/static/assets/twitter.png" style="height:20px;margin-right: 15px;">
+ 
+    <img src="../../app/static/assets/facebook.png" style="height:20px;margin-right: 15px;">
+ 
+    <img src="../../app/static/assets/instagram.png" style="height:20px;margin-right: 15px;">
+
+    <img src="../../app/static/assets/whatsapp.png" style="height:20px;">
+  </div>
+  </form>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </body>
