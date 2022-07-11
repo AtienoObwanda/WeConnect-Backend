@@ -28,7 +28,6 @@ class Profile(models.Model):
     bio = models.TextField()
     address = models.CharField(max_length=50, blank=True)
     location = models.CharField(max_length=50, blank=True)
-    profile_category = models.ForeignKey('Category',null=True, blank=True, on_delete=models.CASCADE)
 
     def save_profile(self):
         self.save()
