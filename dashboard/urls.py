@@ -5,8 +5,8 @@ from . import views
 
 
 urlpatterns = [
-    path('dashboard/', views.clientDashboard, name='dashboard'),
-    path('dashboard/', views.ownerDashboard, name='dashboard'),
+    path('dashboard/user/', views.clientDashboard, name='clientDashboard'),
+    path('dashboard/hotel/admin/', views.ownerDashboard, name='ownerDashboard'),
 
     
 ]

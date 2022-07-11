@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'bootstrap4',
+    'widget_tweaks',
     # 'api',
     "corsheaders",
     'app',

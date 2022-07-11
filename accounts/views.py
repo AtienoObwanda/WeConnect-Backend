@@ -39,7 +39,7 @@ def loginClient(request):
             user = authenticate(username=username, password=password)
             if user is not None :
                 login(request,user)
-                return redirect('dashboard')
+                return redirect('clientDashboard')
             else:
                 messages.error(request,"Invalid username or password")
         else:

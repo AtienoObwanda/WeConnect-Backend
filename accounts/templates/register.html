@@ -1,0 +1,18 @@
+{% load widget_tweaks %}
+{% load static%}
+<form action="{% url 'tutor-reg' %}" method="POST" novalidate>
+    {% csrf_token %}
+       {% for field in form.visible_fields %}
+         <div class="form-group">
+             {{ field.label_tag }}
+                {% render_field field class="form-control" %}
+                  {% for error in field.errors %}
+                    <span style="color:red">{{ error }}</span>
+                  {% endfor %}
+       {% endfor %}
+           <input type="submit" value="Register" class="btn btn-block btn-primary mt-5" style="background-color: #5E5CC0;">
+         </div>
+         <p class="text-center"><small class="text-muted text center">ALREADY HAVE AN ACCOUNT?</small></p>
+         <a type="submit" href="{% url 'login' %}" value="LOGIN" class="btn btn-block btn-primary" style="background-color: #5E5CC0;">LOGIN</a>
+
+  </form>
