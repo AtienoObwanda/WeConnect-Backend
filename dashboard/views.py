@@ -5,10 +5,12 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
+
 from accounts.models import Client, Owner
-
-
-from app.models import Bookings
+from .forms import BookingForm
+from app.models import Bookings, Room
 from accounts.models import *
 
 def clientDashboard(request):
@@ -17,17 +19,41 @@ def clientDashboard(request):
     
     return render(request, 'client.html')
 
-class addNewBooking(LoginRequiredMixin, CreateView):
+class addBooking(LoginRequiredMixin, CreateView):
     model = Bookings
     fields = ['']
     template_name = 'booking.html'
     def form_valid(self, form):
-        form.instance.hotel = self.hotel_name
+        form.instance.hotel = self.room.hotel
         form.instance.amount = self.room.rate
         form.instance.user=self.request.user.client
 
         #hotel amount user phone checkin checkout 
         return super().form_valid(form)
+
+
+
+@login_required
+def addNewBooking(request, pk):
+    current_user = request.user
+
+    room = Room.objects.filter(hotel_id=pk)
+
+
+    if request.method == 'POST':
+        form =  BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.hotel = room.hotel
+            booking.amount = room.rate
+            booking.user = current_user
+            booking.save()
+            return redirect('projectDetail', pk)
+    else:
+        form = BookingForm()
+
+    return render(request, 'booking.html', {'form': form, "room": room, "user": current_user})
+
 
 
 def ownerDashboard(request):

@@ -89,6 +89,25 @@
                             <div class="col-lg-4">
                                 <div class="d-flex flex-column justify-content-between order-summary">
                                    <!--Form-->
+                                   <form method="POST" enctype="multipart/form-data" action="">
+                                    {% csrf_token %}
+                                <div class="row pt-5">
+                                    <div class="col-2"></div>
+                                    <div class="col-8 ">
+                                        
+                                    <!-- <legend class="text-center">NEW POST</legend> -->
+                                        {{form|crispy}}
+                                    </div>
+                            
+                                    <div class="col-2">
+                            
+                                    </div>
+                                    <button class="button-34" type="submit" style="margin-left:13vw">save</button>
+                            
+                                </div>
+                                <div class="btnWrapper pb-5 pt-4">
+                                </div>
+                            </form>
 
                                    <!--EndForm-->
                                 </div>
