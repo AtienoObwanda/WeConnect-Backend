@@ -48,11 +48,13 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'bootstrap4',
     'widget_tweaks',
+    'crispy_forms',
     # 'api',
     "corsheaders",
     'app',
     'accounts',
     'dashboard',
+
 
 ]
 
@@ -134,6 +136,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'accounts.User'
 # ACCOUNT_UNIQUE_EMAIL=True
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Internationalization
@@ -165,6 +168,8 @@ DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 
 LOGOUT_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
+
 
 # setting default email for sending email through sendgrid
 

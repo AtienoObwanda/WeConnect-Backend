@@ -35,9 +35,11 @@ class addBooking(LoginRequiredMixin, CreateView):
 
 @login_required
 def addNewBooking(request, pk):
-    current_user = request.user
+    current_user = request.user.client
 
-    room = Room.objects.filter(hotel_id=pk)
+    room = Room.objects.get(pk=pk)
+    # room = Room.objects.filter(pk=pk)
+
 
 
     if request.method == 'POST':
@@ -45,9 +47,11 @@ def addNewBooking(request, pk):
         if form.is_valid():
             booking = form.save(commit=False)
             booking.hotel = room.hotel
-            booking.amount = room.rate
+            booking.amount = room
+            booking.save()
             booking.user = current_user
             booking.save()
+            print(room.rate)
             return redirect('projectDetail', pk)
     else:
         form = BookingForm()

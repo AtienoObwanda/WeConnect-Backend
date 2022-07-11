@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
 <!DOCTYPE html>
@@ -94,7 +94,7 @@
                                 <div class="row pt-5">
                                     <div class="col-2"></div>
                                     <div class="col-8 ">
-                                        
+
                                     <!-- <legend class="text-center">NEW POST</legend> -->
                                         {{form|crispy}}
                                     </div>
