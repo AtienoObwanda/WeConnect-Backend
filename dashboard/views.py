@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from accounts.models import Client, Owner
+
+
 from app.models import Bookings
 from accounts.models import *
 
@@ -18,9 +20,13 @@ def clientDashboard(request):
 class addNewBooking(LoginRequiredMixin, CreateView):
     model = Bookings
     fields = ['']
-    template_name = 'members/addZone.html'
+    template_name = 'booking.html'
     def form_valid(self, form):
+        form.instance.hotel = self.hotel_name
+        form.instance.amount = self.room.rate
         form.instance.user=self.request.user.client
+
+        #hotel amount user phone checkin checkout 
         return super().form_valid(form)
 
 

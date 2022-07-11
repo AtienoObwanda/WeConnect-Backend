@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Client
+from django.urls import reverse
 
 
 class Hotel (models.Model):
@@ -12,8 +13,12 @@ class Hotel (models.Model):
     facility4 = models.CharField(max_length=30, blank=True, null=True)
     facility5= models.CharField(max_length=30, blank=True, null=True)
     cover_image = models.ImageField(upload_to='images/')
+    
     def __str__(self):
             return self.hotel_name
+
+    def get_absolute_url(self):
+        return reverse('ownerDashboard')
 
 class Room (models.Model):
     ROOM_TYPE = (
@@ -29,6 +34,9 @@ class Room (models.Model):
     hotel= models.ForeignKey(Hotel,  on_delete=models.CASCADE)
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('ownerDashboard')
     
     def create_room(self):
         self.save
@@ -45,3 +53,5 @@ class Bookings(models.Model):
     def __str__(self):
         return f'{self.date}'           
     
+    def get_absolute_url(self):
+        return reverse('clientDashboard')
