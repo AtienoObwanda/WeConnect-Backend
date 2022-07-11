@@ -129,7 +129,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-# AUTH_USER_MODEL = 'api.User'
+AUTH_USER_MODEL = 'accounts.User'
 # ACCOUNT_UNIQUE_EMAIL=True
 
 

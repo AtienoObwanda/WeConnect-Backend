@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser
-
+from accounts.models import Client
 
 
 class Hotel (models.Model):
@@ -34,10 +33,10 @@ class Room (models.Model):
     def create_room(self):
         self.save
 
-class Booking(models.Model):
+class Bookings(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     amount = models.ForeignKey(Room,  on_delete=models.CASCADE)
-    user =  models.ManyToManyField(User, related_name='bookings')
+    user =  models.ManyToManyField(Client, related_name='bookings')
     date = models.DateTimeField(auto_now_add=True)
     phone = models.IntegerField(blank=True, null=True)
     check_in= models.DateTimeField()
