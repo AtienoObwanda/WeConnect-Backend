@@ -19,7 +19,6 @@ class Owner(models.Model):
 
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, related_name='client',primary_key = True) 
-    # courseInterest = models.TextField()
 
     def __str__(self):
         return self.user.first_name
