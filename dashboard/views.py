@@ -4,10 +4,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from accounts.models import Client, Owner
 
 from accounts.models import *
 
 def clientDashboard(request):
+    currentUser = request.user.client
+
     
     return render(request, 'client.html')
 
