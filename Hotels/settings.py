@@ -47,8 +47,12 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'bootstrap4',
-    'api',
+    'widget_tweaks',
+    # 'api',
     "corsheaders",
+    'app',
+    'accounts',
+    'dashboard',
 
 ]
 
@@ -127,8 +131,8 @@ REST_FRAMEWORK = {
     ]
 }
 
-AUTH_USER_MODEL = 'api.User'
-ACCOUNT_UNIQUE_EMAIL=True
+AUTH_USER_MODEL = 'accounts.User'
+# ACCOUNT_UNIQUE_EMAIL=True
 
 
 
@@ -158,6 +162,9 @@ DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Twilio Sendgrid API key
 
+
+
+LOGOUT_REDIRECT_URL = 'home'
 
 # setting default email for sending email through sendgrid
 

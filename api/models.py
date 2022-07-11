@@ -10,6 +10,10 @@ from rest_framework.authtoken.models import Token
 class User(AbstractUser):
     is_owner = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
+    # first_name = models.CharField(max_length=100)
+    # last_name = models.CharField(max_length=100)
+    # email=models.EmailField()
+    # contact = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self) :
         return self.username
@@ -22,17 +26,15 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 class owner(models.Model):
     user = models.OneToOneField(User, related_name='owner', on_delete = models.CASCADE, primary_key = True)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
+    
     def __str__(self):
         return self.user.username
 
 
 class Customer(models.Model):
     user = models.OneToOneField(User, related_name='customer', on_delete = models.CASCADE, primary_key = True)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-    contact = models.IntegerField(blank=True, null=True)
+
+    
     # bookings = models.ForeignKey(Bookings, null=True, on_delete=models.CASCADE)
     def __str__(self):
             return self.user.username
@@ -94,9 +96,15 @@ class Hotel (models.Model):
     def update_hotel(self, hotel_name):
         self.hotel_name = hotel_name
         self.save()
-class Rooms (models.Model):
-    name = models.CharField(max_length=100)
-    rate = models.IntegerField(blank=True, null=True)
+class Room (models.Model):
+    ROOM_TYPE = (
+        ('Stan', 'Standard'),
+        ('StanT', 'Standard Twin'),
+        ('Del', 'Deluxe'),
+        ('DelT', 'Deluxe Twin')
+        )
+    name = models.CharField(max_length=30, choices=ROOM_TYPE)
+    rate = models.PositiveIntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='images/')
     hotel= models.ForeignKey(Hotel,  on_delete=models.CASCADE)
     def __str__(self):
@@ -106,15 +114,15 @@ class Rooms (models.Model):
         self.save
 
 class Booking(models.Model):
-    hotels = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    amount = models.ForeignKey(Rooms,  on_delete=models.CASCADE)
+    # hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    # amount = models.ForeignKey(Room,  on_delete=models.CASCADE)
     user =  models.ManyToManyField(Customer, related_name='bookings')
     date = models.DateTimeField(auto_now_add=True)
     # phone = models.IntegerField(blank=True, null=True)
     # no_of_room = models.PositiveSmallIntegerField(default=1)
-    # check_in= models.DateTimeField(auto_now_add=True)
-    # check_out = models.DateTimeField(auto_now_add=True)
+    check_in= models.DateTimeField()
+    check_out = models.DateTimeField()
     
-    # def __str__(self):
-    #     return self.date                  
+    def __str__(self):
+        return f'{self.date}'           
     

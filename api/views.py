@@ -161,22 +161,29 @@ class GetHotel(APIView):
 
     def get(self, request, pk, format=None):
         hotel = self.get_object(pk)
-        rooms = Rooms.objects.filter(hotel=hotel.id).all()
+        rooms = Room.objects.filter(hotel=hotel.id).all()
         serializer = HotelSerializer(hotel) #, RoomSerializer(rooms)
         # serializer = RoomSerializer(rooms)
         return Response(serializer.data)
 
 #Create Booking
 class AddBooking(CreateAPIView):
+    permission_classes=[permissions.IsAuthenticated&IsCustomerUser]
     serializer_class = BookingSerializer
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            serializer.save() # user=request.user.customer,
+            serializer.save(user=request.user.customer) # user=request.user.customer,
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+#Fetch all booking
+class BookingList(APIView):
+    def get(self, request, format=None):
+        bookings = Booking.objects.all()
+        serializer = BookingSerializer(bookings, many=True)
+        return Response(serializer.data)
 
 # Fetch Booking information
 

@@ -1,8 +1,7 @@
-from dataclasses import field
-from pyexpat import model
 from rest_framework import serializers
+from django.db import transaction
 
-from api.models import User, Customer, owner, Facility, Hotel, Rooms, Booking
+from api.models import User, Customer, owner, Facility, Hotel, Room, Booking
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -44,6 +43,27 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
         user.save()
         Customer.objects.create(user=user)
         return user
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        user = User(
+            username=self.validated_data['username'],
+            email=self.validated_data['email'],
+            
+
+        )
+     
+        password=self.validated_data['password']
+        password2=self.validated_data['password2']
+        if password !=password2:
+            raise serializers.ValidationError({"error":"password do not match"})
+        user.set_password(password)
+        user.is_customer = True
+       
+        user.save() 
+        customer = Customer.objects.create(user=user)
+        customer.save()
+        return user
+
 
 
 class HotelAdminSignupSerializer(serializers.ModelSerializer):
@@ -94,7 +114,9 @@ class HotelSerializer(serializers.ModelSerializer):
 
 # Add Booking
 class BookingSerializer(serializers.ModelSerializer):
-    # user = serializers.SlugRelatedField(slug_field='username', read_only=True)
+    # user = serializers.SlugRelatedField(slug_field='user', read_only=True)
+    user = serializers.ReadOnlyField(source='user.username')
+
     class Meta:
         model = Booking
         fields = "__all__"
@@ -105,5 +127,5 @@ class RoomSerializer(serializers.ModelSerializer):
     # hotel = serializers.SlugRelatedField(slug_field='hotel_name', read_only=True)
 
     class Meta:
-        model = Rooms
+        model = Room
         fields = "__all__"

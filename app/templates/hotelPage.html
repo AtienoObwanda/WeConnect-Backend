@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/139d77394a.js" crossorigin="anonymous"></script>
+    <title>We Connect | {{hotel.hotel_name}}</title>
+    <!--Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css" integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/solid.min.css" integrity="sha512-qzgHTQ60z8RJitD5a28/c47in6WlHGuyRvMusdnuWWBB6fZ0DWG/KyfchGSBlLVeqAz+1LzNq+gGZkCSHnSd3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" type="text/css" href="{% static 'css/hotelPage.css' %}">
+
+</head>  
+<body>
+  <!-- home page-->
+  <section >
+    <div class="landingpage" style="background-image: url('{{hotel.cover_image.url}}');">
+    <!-- <div class='container-fluid landingpage h-100 mask' style="background-color: rgba(0, 0, 0, 0.556);"> -->
+
+      <h1 class="fw-bold" style="font-family: Newyork;font-size: 50px; font-weight: bold;">WELCOME TO {{hotel.hotel_name}}</h1>
+      <P class="fw-bold" style="font-family: Gotham Pro; font-size: 25px;">Good people, Good thinking, Good Feeling </P>
+    <!-- </div> -->
+    </div>
+  </section>
+  <!--end of home page-->
+
+  <!--Facilities section-->
+  <section id="facilities">
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+       <div class="form_book">
+         <div class="row">
+          <h1 class="text-center" style="color: #000;">Facilities</h1>
+            <div class="col-md-2 text-center">
+              <i class="fa-solid fa-kitchen-set fa-2x"></i>
+              <p class="date">Kitchen</p>
+             </div>
+            <div class="col-md-2 text-center">
+              <i class="fa-solid fa-person-swimming fa-2x"></i>
+             <p class="date">Pool</p>
+           </div>
+            <div class="col-md-2 text-center">
+              <i class="fa-solid fa-wifi fa-2x"></i>
+              <p class="date">Wifi</p>         
+            </div>
+            <div class="col-md-3 text-center">
+              <i class="fa-solid fa-dumbbell fa-2x"></i>
+              <p class="date">Gym</p>
+             </div>
+             <div class="col-md-3 text-center">
+              <i class="fa-solid fa-taxi fa-2x"></i>
+              <p class="date">Taxi</p>
+             </div>
+                </div>
+              </div>
+          </div>
+       </div>
+    </div>
+ </section>
+ <!--End of facilities section-->
+<br><br>
+ <section id="rooms&rates">
+  <div class="container">
+    <h1 class="text-center fw-bold"  style="color: #000;">Rooms & Rates</h1>
+    <div class="container my-5">
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% if rooms %}
+      {% for room in rooms %}
+      <div class="col">
+        <div class="card h-100 w-100" style="width: 25rem;">
+          <img src="{{room.image.url}}" class="card-img-top" alt="..." style="height:300px;">
+          
+          <div class="card-body">
+            <h5 class="card-title fw-bold">{{room.name}}</h5>
+            <p class="card-text">Ksh.{{room.rate}}/ per night.</p>
+              <p class="card-text">{{room.tagline}}</p>
+            <a href="#" class="btn btn-dark" type="button">Book Now</a>
+          </div>
+        </div>
+        </div>
+      {% endfor %}
+    {% else %}
+    <div class="col-12">
+        <div class="card h-100 w-100" style="width: 25rem;">
+          <div class="card-body">
+            <p class="text-center">
+            {{hotel.hotel_name}} hasn't added any rooms yet...
+            </p>
+          </div>
+        </div>
+        </div>
+    {% endif %}
+      
+    </div>
+   </div>
+  </div>
+  
+ </section>
+
+ <!--book section-->
+ <br><br>
+ {% if rooms %}
+    <section>
+    <div class="container">
+        <h1 class="text-center fw-bold" style="color:#60D143;">Book your stay at {{hotel.hotel_name}}</h1>
+        <div class="text-center">
+        <a href="" routerLink="/booking" type="button" class="btn btn-lg btn-dark">Book Now</a>
+        </div>
+    </div>
+    </section>
+{% endif %}
+ <!--book section-->
+ <br><br><br>
+
+ <!--footer section-->
+ <!-- Footer Section -->
+  <footer class="footer">
+    <div class="row">
+        <div class="col-4 footer-navigation">
+            <h3><a href="#">We<span>Connect</span></a></h3>
+            <p class="links"><a href="#">Home</a><strong> &middot; </strong><a href="#">Hotels</a><strong> &middot; </strong><a href="#">About</a><strong> &middot; </strong><a href="#">Login</a><strong> &middot; </strong><a href="#">Sign Up</a><strong> &middot; </strong><a href="#">Admin</a></p>
+            <p class="company-name">WeConnect &copy; 2022</p>
+        </div>
+        <div class="col-4 footer-contacts">
+            <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                <p><span class="new-line-span">Land Mark Plaza</span>Nairobi, Kenya</p>
+            </div>
+            <div><i class="fa fa-phone footer-contacts-icon"></i>
+                <p class="footer-center-info email text-left"> +254 743 068 355</p>
+            </div>
+            <div><i class="fa fa-envelope footer-contacts-icon"></i>
+                <p> <a href="#" target="_blank">communications.weconnect@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="col-4 footer-about">
+          <h4>About the company</h4>
+          <p>We connect you to your dream destination</p>
+          <div class="social-links social-icons"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-github"></i></a></div>
+      </div>
+        <div class="clearfix"></div>
+       
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  
+</body>
+</html>
+
+    
+    {% endblock content %}
+

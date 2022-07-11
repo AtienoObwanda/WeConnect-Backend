@@ -8,6 +8,7 @@ Django==4.0.5
 django-cloudinary-storage==0.3.0
 django-cors-headers==3.13.0
 django-filter==22.1
+django-widget-tweaks==1.4.12
 djangorestframework==3.13.1
 idna==3.3
 importlib-metadata==4.12.0
