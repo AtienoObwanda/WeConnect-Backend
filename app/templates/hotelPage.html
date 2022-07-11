@@ -86,12 +86,12 @@
       {% for room in rooms %}
       <div class="col">
         <div class="card h-100 w-100" style="width: 25rem;">
-          <img src="{{room.image.url}}" class="card-img-top" alt="...">
+          <img src="{{room.image.url}}" class="card-img-top" alt="..." style="height:300px;">
           
           <div class="card-body">
             <h5 class="card-title fw-bold">{{room.name}}</h5>
             <p class="card-text">Ksh.{{room.rate}}/ per night.</p>
-              <p class="card-text">Enjoy your Deluxe room.</p>
+              <p class="card-text">{{room.tagline}}</p>
             <a href="#" class="btn btn-dark" type="button">Book Now</a>
           </div>
         </div>
@@ -117,14 +117,16 @@
 
  <!--book section-->
  <br><br>
- <section>
-  <div class="container">
-    <h1 class="text-center fw-bold" style="color:#60D143;">Get a room already</h1>
-    <div class="text-center">
-    <a href="" routerLink="/booking" type="button" class="btn btn-lg btn-dark">Book Now</a>
+ {% if rooms %}
+    <section>
+    <div class="container">
+        <h1 class="text-center fw-bold" style="color:#60D143;">Book your stay at {{hotel.hotel_name}}</h1>
+        <div class="text-center">
+        <a href="" routerLink="/booking" type="button" class="btn btn-lg btn-dark">Book Now</a>
+        </div>
     </div>
-  </div>
- </section>
+    </section>
+{% endif %}
  <!--book section-->
  <br><br><br>
 
