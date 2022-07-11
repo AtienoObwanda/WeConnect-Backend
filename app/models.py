@@ -11,6 +11,9 @@ class Hotel (models.Model):
     facility3 = models.CharField(max_length=30, blank=True, null=True)
     facility4 = models.CharField(max_length=30, blank=True, null=True)
     facility5= models.CharField(max_length=30, blank=True, null=True)
+    cover_image = models.ImageField(upload_to='images/')
+    def __str__(self):
+            return self.hotel_name
 
 class Room (models.Model):
     ROOM_TYPE = (
