@@ -44,7 +44,7 @@ class Room (models.Model):
 class Bookings(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     amount = models.ForeignKey(Room,  on_delete=models.CASCADE)
-    user =  models.ManyToManyField(Client, related_name='bookings')
+    user =  models.ManyToManyField(Client, related_name='userBookings')
     date = models.DateTimeField(auto_now_add=True)
     phone = models.IntegerField(blank=True, null=True)
     check_in= models.DateTimeField()

@@ -10,7 +10,7 @@ urlpatterns = [
     path('add-booking/', addBooking.as_view(), name='addBooking'),
     path('bookings/room/<int:pk>/', views.addNewBooking,name='book'),
 
-
-
-    
 ]
+# if settings.DEBUG:
+#     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+

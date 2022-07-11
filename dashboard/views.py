@@ -15,9 +15,11 @@ from accounts.models import *
 
 def clientDashboard(request):
     currentUser = request.user.client
+    activeBookings = Bookings.objects.filter(user=currentUser.pk).all()
+
 
     
-    return render(request, 'client.html')
+    return render(request, 'client.html', {'activeBookings': activeBookings})
 
 class addBooking(LoginRequiredMixin, CreateView):
     model = Bookings
@@ -49,10 +51,10 @@ def addNewBooking(request, pk):
             booking.hotel = room.hotel
             booking.amount = room
             booking.save()
-            booking.user = current_user
+            booking.user.set([request.user.client])
             booking.save()
             print(room.rate)
-            return redirect('projectDetail', pk)
+            return redirect('hotelPage', pk)
     else:
         form = BookingForm()
 
