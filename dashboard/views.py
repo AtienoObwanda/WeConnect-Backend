@@ -23,17 +23,7 @@ def clientDashboard(request):
     
     return render(request, 'client.html', {'activeBookings': activeBookings})
 
-class addBooking(LoginRequiredMixin, CreateView):
-    model = Bookings
-    fields = ['']
-    template_name = 'booking.html'
-    def form_valid(self, form):
-        form.instance.hotel = self.room.hotel
-        form.instance.amount = self.room.rate
-        form.instance.user=self.request.user.client
 
-        #hotel amount user phone checkin checkout 
-        return super().form_valid(form)
 
 
 

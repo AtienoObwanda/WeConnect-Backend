@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
 {% block content %}
 
 <!DOCTYPE html>
@@ -38,7 +40,7 @@
                     <div class="h4 text" style="color:#60D143; font-weight: bold;">Account</div>
                     <ul>
                         <li class="active">
-                            <a href="#" class="text-decoration-none d-flex align-items-start">
+                            <a href="{% url 'clientDashboard' %}" class="text-decoration-none d-flex align-items-start">
                                 <div class="fas fa-box pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
                                     <div class="link">Dashboard</div>
@@ -46,23 +48,24 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="text-decoration-none d-flex align-items-start">
+                            <a href="{% url 'hotels' %}" class="text-decoration-none d-flex align-items-start">
                                 <div class="fas fa-box-open pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
-                                    <div class="link">New Reservationz</div>
+                                    <div class="link">New Reservation</div>
                                     <div class="link-desc">Make new reservations</div>
                                 </div>
                             </a>
                         </li>
                        
                         <li>
-                            <a href="#" class="text-decoration-none d-flex align-items-start">
+                            <a href="{% url 'profile' %}" class="text-decoration-none d-flex align-items-start">
                                 <div class="far fa-user pt-2 me-3"></div>
                                 <div class="d-flex flex-column">
                                     <div class="link">My Profile</div>
                                     <div class="link-desc">View or Update your Profile</div>
                                 </div>
                             </a>
+
                         </li>
                         <li>
                             <a href="#" class="text-decoration-none d-flex align-items-start">
@@ -90,23 +93,20 @@
                                 <div class="d-flex flex-column justify-content-between order-summary">
                                    <!--Form-->
                                    <form method="POST" enctype="multipart/form-data" action="">
-                                    {% csrf_token %}
-                                <div class="row pt-5">
-                                    <div class="col-2"></div>
-                                    <div class="col-8 ">
-
-                                    <!-- <legend class="text-center">NEW POST</legend> -->
-                                        {{form|crispy}}
-                                    </div>
-                            
-                                    <div class="col-2">
-                            
-                                    </div>
-                                    <button class="button-34" type="submit" style="margin-left:13vw">save</button>
-                            
-                                </div>
-                                <div class="btnWrapper pb-5 pt-4">
-                                </div>
+                                        {% csrf_token %}
+                                        {% for field in form.visible_fields %}
+                                            <div class="form-group">
+                                                {{ field.label_tag }}
+                                                    {% render_field field class="form-control" %}
+                                                    {% if messages%}
+                                                        {% for message in messages %}
+                                                        <span style="color:red">{{ message }}</span>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                        {% endfor %}
+                                        <br>
+                                            <input type="submit" value="Reserve" class="btn btn-block btn-primary" style="background-color: #60D143; border: #60D143;">
+                                            </div>
                             </form>
 
                                    <!--EndForm-->
