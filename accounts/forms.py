@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
-from . models import User, Owner, Client
+from . models import User, Owner, Client,Profile
 
 
 
@@ -51,4 +51,9 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']  
+        fields = ['username', 'email'] 
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio' ,'address', 'location', 'profile_category']     
