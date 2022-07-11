@@ -13,7 +13,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('hotels', views.hotels, name='hotels'),
     path('hotel/<int:pk>/', views.HotelDetailList.as_view(),name='hotelPage'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
 
     
