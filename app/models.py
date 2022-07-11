@@ -6,6 +6,7 @@ from django.contrib.auth.models import User, AbstractUser
 class Hotel (models.Model):
     hotel_name = models.CharField(max_length=100)
     description = models.TextField(blank= True)
+    tagline = models.CharField(max_length=100)
     facility1 = models.CharField(max_length=30, blank=True, null=True)
     facility2 = models.CharField(max_length=30, blank=True, null=True)
     facility3 = models.CharField(max_length=30, blank=True, null=True)
@@ -17,12 +18,13 @@ class Hotel (models.Model):
 
 class Room (models.Model):
     ROOM_TYPE = (
-        ('Stan', 'Standard'),
-        ('StanT', 'Standard Twin'),
-        ('Del', 'Deluxe'),
-        ('DelT', 'Deluxe Twin')
+        ('Standard', 'Standard'),
+        ('Standard Twin', 'Standard Twin'),
+        ('Deluxe', 'Deluxe'),
+        ('Deluxe Twin', 'Deluxe Twin')
         )
     name = models.CharField(max_length=30, choices=ROOM_TYPE)
+    tagline = models.CharField(max_length=100)
     rate = models.PositiveIntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='images/')
     hotel= models.ForeignKey(Hotel,  on_delete=models.CASCADE)
