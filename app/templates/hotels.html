@@ -40,7 +40,7 @@
                   {{hotel.description}}
                 </small>
               </p>
-              <a href="" routerLink="/hotels/{{hotel.id}}" class="btn btn-success" type="button" style="background-color:#60D143 ;">View</a>
+              <a href="{% url 'hotelPage' hotel.pk %}"  class="btn btn-success" type="button" style="background-color:#60D143 ;">View</a>
             </div>
           </div>
     </div>
