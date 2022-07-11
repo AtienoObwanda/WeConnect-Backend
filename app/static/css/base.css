@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@font-face{
+    font-family: Newyork;
+    src: local('Newyork'),url('../fonts/NewYork.otf')
+    format("truetype");
+  }
+  @font-face{
+    font-family: Gotham Pro;
+    src: local('Gotham Pro'),url('../fonts/GothamProRegular.ttf')
+    format("truetype");
+  }
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Newyork;
+}
+
+.navbar .navbar-nav .nav-item .active {
+    color: #60D143;
+}
+.navbar .navbar-nav .nav-item {
+    color: black;
+}
+
+.navbar .navbar-nav .nav-item :hover{
+    color: #DFAA5B;
+}
+
+
+a.fas {
+    position: relative;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
