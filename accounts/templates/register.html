@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 {% load static%}
-<form action="{% url 'tutor-reg' %}" method="POST" novalidate>
+<form action="{% url 'register' %}" method="POST" novalidate>
     {% csrf_token %}
        {% for field in form.visible_fields %}
          <div class="form-group">

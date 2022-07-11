@@ -13,9 +13,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('hotels', views.hotels, name='hotels'),
     path('hotel/<int:pk>/', views.HotelDetailList.as_view(),name='hotelPage'),
-
-
     
 ]
-if settings.DEBUG:
-    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
