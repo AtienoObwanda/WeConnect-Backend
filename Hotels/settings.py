@@ -160,6 +160,9 @@ DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 # Twilio Sendgrid API key
 
 
+
+LOGOUT_REDIRECT_URL = 'home'
+
 # setting default email for sending email through sendgrid
 
 cloudinary.config( 
