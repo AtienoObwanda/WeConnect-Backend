@@ -51,10 +51,18 @@ def ownerDashboard(request):
   # bookings 
   bookings = Bookings.objects.filter(hotel__id__in = hotels).all()
   count = bookings.count()
+  books  = list(bookings)
+  print(books)
+  sum = 0
+  for book in books:
+    print(book.amount.rate)
+    sum+=book.amount.rate
+  print(sum)
+  
   # rooms 
   rooms = Room.objects.filter(hotel__id__in = hotels).all()
 
-  return render(request, 'owner.html', { 'hotels':hotels, 'rooms':rooms, 'bookings':bookings, 'count':count})
+  return render(request, 'owner.html', { 'hotels':hotels, 'rooms':rooms, 'bookings':bookings, 'count':count, 'sum':sum})
       
 class newHotel(LoginRequiredMixin, CreateView):
     model = Hotel

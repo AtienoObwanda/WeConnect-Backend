@@ -119,8 +119,8 @@
                 <th>Date Reserved</th>
                 <th>Time Reserved</th>
                 <th>Room</th>
-                <th>Amount</th>
                 <th>Hotel</th>
+                <th>Amount</th>
               </tr>
             </thead>
             <tbody>
@@ -134,21 +134,21 @@
                 <td>{{booking.date|date}}</td>
                 <td>{{booking.date|time}}</td>
                 <td>{{booking.amount}}</td>
+                <td>{{booking.hotel}}</td>
                 <td>{{booking.amount.rate}}</td>
-                <td><span class="status completed">{{booking.hotel}}</span></td>
               </tr>
               {% endfor %}
               <!--Get Total booking amount-->
-              <!-- <tr>
+              <tr>
                 <td>
                   Sub-Total 
                 </td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><span class="status completed"></span></td>
+                <td><span class="status completed">{{sum}}</span></td>
 
-              </tr> -->
+              </tr>
               <!--End Total Booking amount-->
               <!-- end guests loop -->
              {% else %}

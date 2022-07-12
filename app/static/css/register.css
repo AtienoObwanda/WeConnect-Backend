@@ -12,8 +12,8 @@ html{
       min-height: 50vh
     }
     .bg-image{
-      
       background-image: url('../assets/pool.webp');
+      /* background-image: url('../assets/register.png'); */
       background-size: cover;
       background-position: center center;  
   
