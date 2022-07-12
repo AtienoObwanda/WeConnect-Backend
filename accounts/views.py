@@ -39,8 +39,8 @@ class ClientReg(CreateView):
         from_email='communications.weconnect@gmail.com',
         to_emails=[Uemail],
         subject='We Connect Account Created Sucessfully!',
-        html_content='Hey, Your We Connect Account has been created succesfully...')
-        message.template_id =  'd-f2da6557f31b449c8bab5ed6931dcbf8'
+        html_content='Hey, Your We Connect Account has been created successfully...')
+        message.template_id =  'd-954adeb95caa47c9a1ac223a602059c8'
 
         user = form.save()
         try:
