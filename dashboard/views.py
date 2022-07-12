@@ -46,41 +46,23 @@ def addNewBooking(request, pk):
 
 
 def ownerDashboard(request):
-<<<<<<< HEAD
-    return render(request, 'owner.html')
-
-# def hotel(request):
-#   current_owner=request.user
-#   hotel = Hotel.objects.get(hotel_name=current_owner)
-#   return render(request, 'hotels.html', {"hotel":hotel})
-
-  
-def new_hotel(request):
-  current_owner = request.user
-  hotel = Hotel.objects.get(hotel_name=current_owner)
-
-  if request.method == 'POST':
-    form  = HotelForm(request.POST, request.FILES)
-    if form.is_valid():
-      newhotel = form.save(commit = False)
-      newhotel.username = current_owner
-      newhotel.hotel = hotel.hotel
-      newhotel.save()
-
-    return HttpResponseRedirect('/hotel')
-
-  else:
-    form = HotelForm()
-=======
   currentUser = request.user.owner
   hotels = Hotel.objects.filter(admin=currentUser.pk).all() 
   # bookings 
   bookings = Bookings.objects.filter(hotel__id__in = hotels).all()
   count = bookings.count()
+  books  = list(bookings)
+  print(books)
+  sum = 0
+  for book in books:
+    print(book.amount.rate)
+    sum+=book.amount.rate
+  print(sum)
+  
   # rooms 
   rooms = Room.objects.filter(hotel__id__in = hotels).all()
 
-  return render(request, 'owner.html', { 'hotels':hotels, 'rooms':rooms, 'bookings':bookings, 'count':count})
+  return render(request, 'owner.html', { 'hotels':hotels, 'rooms':rooms, 'bookings':bookings, 'count':count, 'sum':sum})
       
 class newHotel(LoginRequiredMixin, CreateView):
     model = Hotel
@@ -98,5 +80,4 @@ class newRoom(LoginRequiredMixin, CreateView):
         # currentUser = self.request.user.owner
         # hotel = Hotel.objects.filter(admin=currentUser.pk).all()
         return super().form_valid(form)  
->>>>>>> b62cfa42d219f9e7fabcf59708d8ea293110a9d7
 
