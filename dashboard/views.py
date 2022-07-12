@@ -101,6 +101,15 @@ def edit_hotel(request, pk):
 def delete_hotel(request, pk):
     hotel = Hotel.objects.get(pk=pk)
     hotel.delete()
-    # next= request.POST.get('next','/')
-    # return HttpResponseRedirect ('next')
     return redirect('ownerDashboard')
+
+
+def delete_room(request, pk):
+    room = Room.objects.get(pk=pk)
+    room.delete()
+    return redirect('ownerDashboard')
+
+def del_booking(request, pk):
+    booking = Bookings.objects.get(pk=pk)
+    booking.delete()
+    return redirect('clientDashboard')
