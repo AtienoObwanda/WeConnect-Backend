@@ -15,13 +15,13 @@ class User(AbstractUser):
 class Owner(models.Model):
     user = models.OneToOneField(User, related_name='owner', on_delete = models.CASCADE, primary_key = True)
     def __str__(self):
-            return self.user.first_name
+        return f'Username: {self.user.username} | First Name: {self.user.first_name} | Lastname: {self.user.last_name}'
 
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, related_name='client',primary_key = True) 
 
     def __str__(self):
-        return self.user.first_name
+        return f'Username: {self.user.username} | First Name: {self.user.first_name} | Lastname: {self.user.last_name}'
 
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')

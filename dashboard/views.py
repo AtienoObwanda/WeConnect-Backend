@@ -49,10 +49,11 @@ def ownerDashboard(request):
   hotels = Hotel.objects.filter(admin=currentUser.pk).all() 
   # bookings 
   bookings = Bookings.objects.filter(hotel__id__in = hotels).all()
+  count = bookings.count()
   # rooms 
   rooms = Room.objects.filter(hotel__id__in = hotels).all()
 
-  return render(request, 'owner.html', {'hotels':hotels, 'rooms':rooms, 'bookings':bookings})
+  return render(request, 'owner.html', {'hotels':hotels, 'rooms':rooms, 'bookings':bookings, 'count':count})
       
 class newHotel(LoginRequiredMixin, CreateView):
     model = Hotel
@@ -67,7 +68,7 @@ class newRoom(LoginRequiredMixin, CreateView):
     fields = ['name','tagline','rate','image','hotel']
     template_name = 'newRoom.html'
     def form_valid(self,form):
-        currentUser = self.request.user.owner
-        hotel = Hotel.objects.filter(admin=currentUser.pk).all()
+        # currentUser = self.request.user.owner
+        # hotel = Hotel.objects.filter(admin=currentUser.pk).all()
         return super().form_valid(form)  
 

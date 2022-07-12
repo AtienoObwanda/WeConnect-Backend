@@ -66,6 +66,7 @@
         <img src="{{hotel.cover_image.url}}" class='bx bxs-calendar-check' ></i>
         <span class="text">
           <h3>{{hotel.hotel_name}}</h3>
+          <p>{{bookings |length}} Guests</p>
          <a href="{% url 'newRoom' hotel.pk %}">
           Add room
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -74,7 +75,6 @@
           </svg>
          </a>
           
-          <!-- <p>{{bookings |length}} Guests</p> -->
         </span>
       </li>
       {% endfor %}
@@ -97,20 +97,31 @@
               <tr>
                 <th>User</th>
                 <th>Date Reserved</th>
+                <th>Time Reserved</th>
+                <th>Room</th>
+                <th>Amount</th>
                 <th>Hotel</th>
               </tr>
             </thead>
             <tbody>
+             {% if bookings %}
               <!-- Guests loop -->
+              {% for booking in bookings %}
               <tr>
                 <td>
-                  <img src="">
-                  <p>John Doe</p>
+                  <!-- <img src=""> -->
+                  <p>{{booking.user.client.first_name}}</p>
                 </td>
-                <td>01-10-2021</td>
-                <td><span class="status completed">Bon Hotel</span></td>
+                <td>{{booking.date|date}}</td>
+                <td>{{booking.date|time}}</td>
+                <td>{{booking.amount}}</td>
+                <td>{{booking.amount.rate}}</td>
+                <td><span class="status completed">{{booking.hotel}}</span></td>
               </tr>
+              {% endfor %}
               <!-- end guests loop -->
+             {% else %}
+             {% endif %}
             </tbody>
           </table>
         </div>
