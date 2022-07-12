@@ -64,15 +64,15 @@ def ownerDashboard(request):
 
   
 def new_hotel(request):
-  current_owner = request.user.owner
-  hotel = Hotel.objects.get(hotel_name=current_owner)
+  # current_owner = request.user.owner
+  # hotel = Hotel.objects.get(hotel_name=current_owner)
 
   if request.method == 'POST':
     form  = HotelForm(request.POST, request.FILES)
     if form.is_valid():
       newhotel = form.save(commit = False)
-      newhotel.username = current_owner
-      newhotel.hotel = hotel.hotel
+      newhotel.username = request.user.owner
+      # newhotel.hotel = hotel.hotel
       newhotel.save()
 
     return HttpResponseRedirect('/hotel')
