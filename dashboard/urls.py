@@ -8,6 +8,7 @@ urlpatterns = [
     path('hotel/admin/', views.ownerDashboard, name='ownerDashboard'),
     path('bookings/room/<int:pk>/', views.addNewBooking,name='book'),
     path('new/hotel/', views.newHotel.as_view(), name='new-hotel'),
+    path('new/room/hotel/<int:pk>/', views.newRoom.as_view(), name='newRoom'),
 
 ]
 # if settings.DEBUG:

@@ -63,10 +63,10 @@ class newHotel(LoginRequiredMixin, CreateView):
 
 class newRoom(LoginRequiredMixin, CreateView):
     model = Room
-    fields = ['name','tagline','rate','image']
+    fields = ['name','tagline','rate','image','hotel']
     template_name = 'newRoom.html'
-    def form_valid(self,pk, form):
-        hotel = Hotel.objects.get(pk=pk)
-        form.instance.hotel=hotel
+    def form_valid(self,form):
+        currentUser = self.request.user.owner
+        hotel = Hotel.objects.filter(admin=currentUser.pk).all()
         return super().form_valid(form)  
 
