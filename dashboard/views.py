@@ -59,36 +59,13 @@ class newHotel(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.admin=self.request.user.owner
         return super().form_valid(form)   
-  
-@login_required
-def addHotel(request):
-  current_user = request.user.owner
-  form =  HotelForm(request.POST)
-    # room = Room.objects.get(pk=pk)
-  if request.method == 'POST':
-    form =  HotelForm(request.POST)
-    if form.is_valid():
-      hotel = form.save(commit=False)
-      hotel.admin.set([request.user.owner])
-      hotel.save()
-      return redirect('ownerDashboard')
-    else:
-        form = HotelForm()
-        return render(request, 'posthotel.html', {'form': form, 'user' : current_user})
 
+class newRoom(LoginRequiredMixin, CreateView):
+    model = Room
+    fields = ['name','tagline','rate','image']
+    template_name = 'newRoom.html'
+    def form_valid(self,pk, form):
+        hotel = Hotel.objects.get(pk=pk)
+        form.instance.hotel=hotel
+        return super().form_valid(form)  
 
-@login_required
-def addRoom(request,pk):
-  current_user = request.user.owner
-  form =  HotelForm(request.POST)
-  hotel = Hotel.objects.get(pk=pk)
-  if request.method == 'POST':
-    form =  RoomForm(request.POST)
-    if form.is_valid():
-      room = form.save(commit=False)
-      room.hotel=hotel
-      room.save()
-      return redirect('ownerDashboard')
-    else:
-        form = HotelForm()
-        return render(request, 'newRoom.html', {'form': form, 'user' : current_user, 'hotel' : hotel})
