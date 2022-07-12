@@ -3,5 +3,3 @@ env/
 venv/
 api/migrationssendgrid.env
 sendgrid.env
-sendgrid.env
-export SENDGRID_API_KEY='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'
