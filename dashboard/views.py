@@ -91,8 +91,8 @@ def edit_hotel(request, pk):
             hotel.admin = current_user
             hotel.save()
         return redirect('ownerDashboard')
-    elif Hotel.objects.get(admin=current_user):
-        hotel = Hotel.objects.get(admin=current_user)
+    elif Hotel.objects.get(pk=pk):
+        hotel = Hotel.objects.get(pk=pk)
         form = HotelForm(instance=hotel)
     else:
         form = HotelForm()
