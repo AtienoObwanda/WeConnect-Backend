@@ -1,24 +1,38 @@
 from django.shortcuts import render
-from django.views.generic import DeleteView, ListView, UpdateView,DetailView, CreateView
+from django.views.generic import DeleteView, ListView, UpdateView, DetailView, CreateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 from .models import *
 from .forms import *
 
-def clientDashboar(request):
-    
-    return render(request, 'register.html')
+def mail(request):
+    message = Mail(
+        from_email='from_email@example.com',
+        to_emails='to@example.com',
+        subject='Sending with Twilio SendGrid is Fun',
+        html_content='<strong>and easy to do anywhere, even with Python</strong>')
+    try:
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        response = sg.send(message)
+    except Exception as e:
+        print(e.message)
 
+def clientDashboar(request):
+
+    return render(request, 'register.html')
 
 
 def ownerDashboard(request):
     return render(request, 'login.html')
-
 
 
 class ClientReg(CreateView):
@@ -27,27 +41,43 @@ class ClientReg(CreateView):
     template_name = 'register.html'
 
     def form_valid(self, form):
+        Uemail = form.cleaned_data['email']
+        message = Mail(
+        from_email='communications.weconnect@gmail.com',
+        to_emails=[Uemail],
+        subject='Sending with Twilio SendGrid is Fun',
+        html_content='<strong>and easy to do anywhere, even with Python</strong>')
         user = form.save()
+        try:
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e.message)
         login(self.request, user)
         return redirect('login')
+    
 
 
 def loginClient(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None :
-                login(request,user)
+            if user is not None:
+                login(request, user)
                 return redirect('clientDashboard')
             else:
-                messages.error(request,"Invalid username or password")
+                messages.error(request, "Invalid username or password")
         else:
-                messages.error(request,"Invalid username or password")
+            messages.error(request, "Invalid username or password")
     return render(request, 'login.html',
-    context={'form':AuthenticationForm()})
+                  context={'form': AuthenticationForm()})
+
 
 class AdminReg(CreateView):
     model = User
@@ -57,34 +87,37 @@ class AdminReg(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('admin-login')    
+        return redirect('admin-login')
+
 
 def loginAdmin(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None :
-                login(request,user)
+            if user is not None:
+                login(request, user)
                 return redirect('ownerDashboard')
             else:
-                messages.error(request,"Invalid username or password")
+                messages.error(request, "Invalid username or password")
         else:
-                messages.error(request,"Invalid username or password")
+            messages.error(request, "Invalid username or password")
     return render(request, 'admin-login.html',
-    context={'form':AuthenticationForm()})   
+                  context={'form': AuthenticationForm()})
+
 
 def profile(request):
     Profile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
-            p_form.instance.user=request.user
+            p_form.instance.user = request.user
             p_form.save()
 
             messages.success(request, f'Your account has been updated!')
@@ -99,4 +132,4 @@ def profile(request):
         'p_form': p_form
     }
 
-    return render(request, 'profile.html', context)             
+    return render(request, 'profile.html', context)
