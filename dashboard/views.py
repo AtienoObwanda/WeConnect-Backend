@@ -84,7 +84,7 @@ class newRoom(LoginRequiredMixin, CreateView):
 def edit_hotel(request, pk):
     current_user=request.user.owner
     if request.method=="POST":
-        instance = Hotel.objects.get(admin=current_user)
+        instance = Hotel.objects.get(pk=pk)
         form =HotelForm(request.POST,request.FILES,instance=instance)
         if form.is_valid():
             hotel = form.save(commit = False)
