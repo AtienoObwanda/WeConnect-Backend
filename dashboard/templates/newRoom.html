@@ -58,7 +58,7 @@
       <div class="box-info">
         <div class="d-flex flex-column justify-content-between order-summary">
             <!--Form-->
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" action="">
                  {% csrf_token %}
                  {% for field in form.visible_fields %}
                      <div class="form-group">
@@ -71,7 +71,7 @@
                              {% endif %}
                  {% endfor %}
                  <br>
-                     <input type="submit" value="Add Hotel" class="btn btn-block btn-primary" style="background-color: #60D143; border: #60D143;">
+                     <input type="submit" value="Add Room" class="btn btn-block btn-primary" style="background-color: #60D143; border: #60D143;">
                      </div>
             </form>
 

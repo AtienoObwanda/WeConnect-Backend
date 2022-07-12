@@ -10,4 +10,11 @@ class BookingForm(forms.ModelForm):
 class HotelForm(forms.ModelForm):
      class Meta:
          model = Hotel
-         fields = '__all__'
+         exclude = ['admin']
+
+class RoomForm(forms.ModelForm):
+     class Meta:
+         model = Room
+         exclude = ['hotel']
+
+
