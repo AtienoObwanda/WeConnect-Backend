@@ -97,3 +97,10 @@ def edit_hotel(request, pk):
     else:
         form = HotelForm()
     return render(request,'posthotel.html',{"form":form})
+
+def delete_hotel(request, pk):
+    hotel = Hotel.objects.get(pk=pk)
+    hotel.delete()
+    # next= request.POST.get('next','/')
+    # return HttpResponseRedirect ('next')
+    return redirect('ownerDashboard')
