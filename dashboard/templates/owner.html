@@ -119,6 +119,18 @@
                 <td><span class="status completed">{{booking.hotel}}</span></td>
               </tr>
               {% endfor %}
+              <!--Get Total booking amount-->
+              <!-- <tr>
+                <td>
+                  Sub-Total 
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><span class="status completed"></span></td>
+
+              </tr> -->
+              <!--End Total Booking amount-->
               <!-- end guests loop -->
              {% else %}
              {% endif %}
@@ -133,13 +145,19 @@
           </div>
           <ul class="todo-list">
             <!-- loop rooms -->
+            {% if rooms %}
             {% for room in rooms %}
             <li class="completed">
               <p>{{room.name}}</p>
               <i class='bx bx-dots-vertical-rounded' ></i>
             </li>
             {% endfor %}
-            <!-- end room loop -->
+            {% else %}
+            <li class="completed">
+              <p>You haven't added rooms yet...</p>
+              <i class='bx bx-dots-vertical-rounded' ></i>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
