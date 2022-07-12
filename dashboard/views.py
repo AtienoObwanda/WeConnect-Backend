@@ -55,7 +55,7 @@ def ownerDashboard(request):
 class newHotel(LoginRequiredMixin, CreateView):
     model = Hotel
     fields = ['hotel_name','description','tagline','cover_image']
-    template_name = 'templates/postHotel.html'
+    template_name = 'posthotel.html'
     def form_valid(self, form):
         form.instance.admin=self.request.user.owner
         return super().form_valid(form)   
