@@ -1,1 +1,1 @@
-web: gunicorn Hotel.wsgi --log-file -
+web: gunicorn Hotels.wsgi --log-file -
