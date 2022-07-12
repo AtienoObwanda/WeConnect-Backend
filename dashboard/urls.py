@@ -7,7 +7,7 @@ urlpatterns = [
     path('user/', views.clientDashboard, name='clientDashboard'),
     path('hotel/admin/', views.ownerDashboard, name='ownerDashboard'),
     path('bookings/room/<int:pk>/', views.addNewBooking,name='book'),
-    path('new/hotel/', views.addHotel, name='new-hotel'),
+    path('new/hotel/', views.newHotel.as_view(), name='new-hotel'),
 
 ]
 # if settings.DEBUG:

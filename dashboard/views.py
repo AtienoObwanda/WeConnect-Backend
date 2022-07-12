@@ -49,6 +49,16 @@ def ownerDashboard(request):
   return render(request, 'owner.html')
 
 
+      # hotel.save()
+      
+      
+class newHotel(LoginRequiredMixin, CreateView):
+    model = Hotel
+    fields = ['hotel_name','description','tagline','cover_image']
+    template_name = 'templates/postHotel.html'
+    def form_valid(self, form):
+        form.instance.admin=self.request.user.owner
+        return super().form_valid(form)   
   
 @login_required
 def addHotel(request):
@@ -59,11 +69,26 @@ def addHotel(request):
     form =  HotelForm(request.POST)
     if form.is_valid():
       hotel = form.save(commit=False)
-      hotel.save()
       hotel.admin.set([request.user.owner])
       hotel.save()
       return redirect('ownerDashboard')
     else:
-      form = HotelForm()
+        form = HotelForm()
+        return render(request, 'posthotel.html', {'form': form, 'user' : current_user})
 
-  return render(request, 'posthotel.html', {'form': form, 'user' : current_user})
+
+@login_required
+def addRoom(request,pk):
+  current_user = request.user.owner
+  form =  HotelForm(request.POST)
+  hotel = Hotel.objects.get(pk=pk)
+  if request.method == 'POST':
+    form =  RoomForm(request.POST)
+    if form.is_valid():
+      room = form.save(commit=False)
+      room.hotel=hotel
+      room.save()
+      return redirect('ownerDashboard')
+    else:
+        form = HotelForm()
+        return render(request, 'newRoom.html', {'form': form, 'user' : current_user, 'hotel' : hotel})
