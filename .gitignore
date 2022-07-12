@@ -3,6 +3,4 @@ env/
 venv/
 api/migrationssendgrid.env
 sendgrid.env
-
-
 sendgrid.env
