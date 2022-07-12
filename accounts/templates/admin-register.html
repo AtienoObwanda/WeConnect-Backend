@@ -39,7 +39,7 @@
   
                 <div class="col-lg-7 col-xl-6 mx-auto ">
                   <h3 class="text-center display-4"></h3> <br>
-<form action="{% url 'register' %}" method="POST" novalidate>
+<form action="{% url 'admin-register' %}" method="POST" novalidate>
     {% csrf_token %}
        {% for field in form.visible_fields %}
          <div class="form-group">

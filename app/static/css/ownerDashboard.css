@@ -23,7 +23,7 @@ li {
   list-style: none;
 }
 :root {
-  --poppins: 'Poppins', sans-serif;
+  --poppins: Gotham Pro;
   --lato: 'Lato', sans-serif;
   --light: #F9F9F9;
   --blue: #60D143;
