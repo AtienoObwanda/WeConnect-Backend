@@ -95,10 +95,11 @@
                         </div>
                     </div>
                     <div class="text-uppercase">My Reservations</div>
+                    {% if activeBookings %}
+                    {% for activeBooking in activeBookings %}
                     <div class="order my-3 bg-light">
                         <div class="row">
-                          {% if activeBookings %}
-                         {% for activeBooking in activeBookings %}
+                        
                             <div class="col-lg-4">
                                 <div class="d-flex flex-column justify-content-between order-summary">
                                     <div class="d-flex align-items-center">
@@ -106,25 +107,29 @@
                                     </div>
                                     <div class="fs-8"><small>Room Type: {{activeBooking.amount}}</small></div>
                                     <div class="fs-8">Amount: {{activeBooking.amount.rate}}</div>
-
                                     <div class="fs-8">Check In: {{activeBooking.check_in |date}} | {{activeBooking.check_in |time}}</div>
                                     <div class="fs-8">Check Out: {{activeBooking.check_out |date}} | {{activeBooking.check_out |time}}</div>
 
                                 </div>
                             </div>
+                            </div>
+                            </div>
                          {% endfor %}
                           {% else %}
+                        <div class="order my-3 bg-light">
+                        <div class="row">
                           <div class="col-lg-4">
                             <div class="d-flex flex-column justify-content-between order-summary">
                                 <div class="d-flex align-items-center">
-                                    <div class="text-uppercase" style="color:#60D143">You haven't made any reservations yet...</div>
+                                    <div class="text-lowecase" style="color:#60D143">You haven't made any reservations yet...</div>
                                 </div>
                             </div>
                         </div>
-                          {% endif %}
+                          
                            
                         </div>
                     </div>
+                    {% endif %}
                    
                 </div>
             </div>

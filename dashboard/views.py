@@ -35,7 +35,8 @@ def addNewBooking(request, pk):
             booking.user.set([request.user.client])
             booking.save()
             print(room.rate)
-            return redirect('hotelPage', pk)
+            # return redirect('hotelPage', pk)
+            return redirect('clientDashboard')
     else:
         form = BookingForm()
 
