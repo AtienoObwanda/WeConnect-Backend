@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import Client
+from accounts.models import Client, Owner
 from django.urls import reverse
 
 
@@ -7,12 +7,8 @@ class Hotel (models.Model):
     hotel_name = models.CharField(max_length=100)
     description = models.TextField(blank= True)
     tagline = models.CharField(max_length=100)
-    facility1 = models.CharField(max_length=30, blank=True, null=True)
-    facility2 = models.CharField(max_length=30, blank=True, null=True)
-    facility3 = models.CharField(max_length=30, blank=True, null=True)
-    facility4 = models.CharField(max_length=30, blank=True, null=True)
-    facility5= models.CharField(max_length=30, blank=True, null=True)
     cover_image = models.ImageField(upload_to='images/')
+    admin= models.ForeignKey(Owner,  on_delete=models.CASCADE)
     
     def __str__(self):
             return self.hotel_name

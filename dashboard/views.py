@@ -8,34 +8,23 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
-
 from accounts.models import Client, Owner
 from .forms import BookingForm
 from app.models import Bookings, Hotel, Room
 from accounts.models import *
 
+
+
 def clientDashboard(request):
     currentUser = request.user.client
-    activeBookings = Bookings.objects.filter(user=currentUser.pk).all()
-
-
-    
+    activeBookings = Bookings.objects.filter(user=currentUser.pk).all()    
     return render(request, 'client.html', {'activeBookings': activeBookings})
-
-
-
-
 
 @login_required
 def addNewBooking(request, pk):
     current_user = request.user.client
-
     room = Room.objects.get(pk=pk)
     # room = Room.objects.filter(pk=pk)
-
-
-
     if request.method == 'POST':
         form =  BookingForm(request.POST)
         if form.is_valid():
@@ -55,29 +44,26 @@ def addNewBooking(request, pk):
 
 
 def ownerDashboard(request):
-    return render(request, 'owner.html')
+  current_user = request.user.owner
 
-# def hotel(request):
-#   current_owner=request.user
-#   hotel = Hotel.objects.get(hotel_name=current_owner)
-#   return render(request, 'hotels.html', {"hotel":hotel})
+  return render(request, 'owner.html')
+
 
   
-def new_hotel(request):
-  # current_owner = request.user.owner
-  # hotel = Hotel.objects.get(hotel_name=current_owner)
-
+@login_required
+def addHotel(request):
+  current_user = request.user.owner
+  form =  HotelForm(request.POST)
+    # room = Room.objects.get(pk=pk)
   if request.method == 'POST':
-    form  = HotelForm(request.POST, request.FILES)
+    form =  HotelForm(request.POST)
     if form.is_valid():
-      newhotel = form.save(commit = False)
-      newhotel.username = request.user.owner
-      # newhotel.hotel = hotel.hotel
-      newhotel.save()
+      hotel = form.save(commit=False)
+      hotel.save()
+      hotel.admin.set([request.user.owner])
+      hotel.save()
+      return redirect('ownerDashboard')
+    else:
+      form = HotelForm()
 
-    return HttpResponseRedirect('/hotel')
-
-  else:
-    form = HotelForm()
-
-  return render(request, 'posthotel.html', {"form":form})
+  return render(request, 'posthotel.html', {'form': form, 'user' : current_user})
