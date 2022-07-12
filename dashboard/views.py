@@ -1,3 +1,4 @@
+from http import client
 from django.shortcuts import render
 from django.views.generic import DeleteView, ListView, UpdateView,DetailView, CreateView
 from django.http  import HttpResponse, Http404, HttpResponseRedirect
@@ -52,6 +53,7 @@ def ownerDashboard(request):
   count = bookings.count()
   # rooms 
   rooms = Room.objects.filter(hotel__id__in = hotels).all()
+#   allBookings = Bookings.objects.filter(hotel.id = hotel).all()
 
   return render(request, 'owner.html', {'hotels':hotels, 'rooms':rooms, 'bookings':bookings, 'count':count})
       

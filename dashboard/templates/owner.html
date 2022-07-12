@@ -66,7 +66,6 @@
         <img src="{{hotel.cover_image.url}}" class='bx bxs-calendar-check' ></i>
         <span class="text">
           <h3>{{hotel.hotel_name}}</h3>
-          <p>{{bookings |length}} Guests</p>
          <a href="{% url 'newRoom' hotel.pk %}">
           Add room
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -89,13 +88,15 @@
       <div class="table-data">
         <div class="order">
           <div class="head">
-            <h3>Recent Reservations</h3>
+            <h3>Recent Reservations </h3>
             <!-- <i class='bx bx-filter' ></i> -->
+            <p>Current Guest Count: {{bookings | length}}</p>
+
           </div>
           <table>
             <thead>
               <tr>
-                <th>User</th>
+                <!-- <th>Guests</th> -->
                 <th>Date Reserved</th>
                 <th>Time Reserved</th>
                 <th>Room</th>
@@ -108,10 +109,9 @@
               <!-- Guests loop -->
               {% for booking in bookings %}
               <tr>
-                <td>
-                  <!-- <img src=""> -->
-                  <p>{{booking.user.client.first_name}}</p>
-                </td>
+                <!-- <td>
+                  <p>{{booking.user.userBookings}}</p>
+                </td> -->
                 <td>{{booking.date|date}}</td>
                 <td>{{booking.date|time}}</td>
                 <td>{{booking.amount}}</td>
@@ -133,10 +133,12 @@
           </div>
           <ul class="todo-list">
             <!-- loop rooms -->
+            {% for room in rooms %}
             <li class="completed">
-              <p>Standard Twin Room</p>
+              <p>{{room.name}}</p>
               <i class='bx bx-dots-vertical-rounded' ></i>
             </li>
+            {% endfor %}
             <!-- end room loop -->
           </ul>
         </div>
