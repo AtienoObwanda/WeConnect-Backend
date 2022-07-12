@@ -42,11 +42,14 @@ class ClientReg(CreateView):
 
     def form_valid(self, form):
         Uemail = form.cleaned_data['email']
+        Uname = form.cleaned_data['username']
+        fName = form.cleaned_data['first_name']
+        lName = form.cleaned_data['last_name']
         message = Mail(
         from_email='communications.weconnect@gmail.com',
         to_emails=[Uemail],
-        subject='Sending with Twilio SendGrid is Fun',
-        html_content='<strong>and easy to do anywhere, even with Python</strong>')
+        subject='We Connect Account Created Sucessfully!',
+        html_content='Hey, Your We Connect Account has been created succesfully...')
         user = form.save()
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
