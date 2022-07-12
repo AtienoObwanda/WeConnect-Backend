@@ -46,8 +46,12 @@ def addNewBooking(request, pk):
 def ownerDashboard(request):
   currentUser = request.user.owner
   hotels = Hotel.objects.filter(admin=currentUser.pk).all() 
+  # bookings 
+  bookings = Bookings.objects.filter(hotel__id__in = hotels).all()
+  # rooms 
+  rooms = Room.objects.filter(hotel__id__in = hotels).all()
 
-  return render(request, 'owner.html', {'hotels':hotels})
+  return render(request, 'owner.html', {'hotels':hotels, 'rooms':rooms, 'bookings':bookings})
       
 class newHotel(LoginRequiredMixin, CreateView):
     model = Hotel
