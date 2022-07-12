@@ -8,23 +8,13 @@ from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 
 import os
+import sendgrid
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 from .models import *
 from .forms import *
 
-def mail(request):
-    message = Mail(
-        from_email='from_email@example.com',
-        to_emails='to@example.com',
-        subject='Sending with Twilio SendGrid is Fun',
-        html_content='<strong>and easy to do anywhere, even with Python</strong>')
-    try:
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-        response = sg.send(message)
-    except Exception as e:
-        print(e.message)
 
 def clientDashboar(request):
 
@@ -50,6 +40,8 @@ class ClientReg(CreateView):
         to_emails=[Uemail],
         subject='We Connect Account Created Sucessfully!',
         html_content='Hey, Your We Connect Account has been created succesfully...')
+        message.template_id =  'd-f2da6557f31b449c8bab5ed6931dcbf8'
+
         user = form.save()
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
