@@ -11,6 +11,8 @@ urlpatterns = [
     path('new/room/hotel/<int:pk>/', views.newRoom.as_view(), name='newRoom'),
     path('update/hotel/<int:pk>/', views.edit_hotel, name='updateHotel'),
     path('delete/hotel/<int:pk>/', views.delete_hotel, name='delHotel'),
+    path('cancel/booking/<int:pk>/', views.del_booking, name='delBooking'),
+    path('delete/room/<int:pk>/', views.delete_room, name='delRoom'),
 
 ]
 # if settings.DEBUG:
