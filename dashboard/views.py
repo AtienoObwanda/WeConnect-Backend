@@ -74,7 +74,7 @@ def ownerDashboard(request):
 
   
 def new_hotel(request):
-  current_owner = request.user.owner
+  current_owner = request.user
   hotel = Hotel.objects.get(hotel_name=current_owner)
 
   if request.method == 'POST':
