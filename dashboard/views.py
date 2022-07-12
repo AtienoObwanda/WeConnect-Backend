@@ -44,13 +44,10 @@ def addNewBooking(request, pk):
 
 
 def ownerDashboard(request):
-  current_user = request.user.owner
+  currentUser = request.user.owner
+  hotels = Hotel.objects.filter(admin=currentUser.pk).all() 
 
-  return render(request, 'owner.html')
-
-
-      # hotel.save()
-      
+  return render(request, 'owner.html', {'hotels':hotels})
       
 class newHotel(LoginRequiredMixin, CreateView):
     model = Hotel

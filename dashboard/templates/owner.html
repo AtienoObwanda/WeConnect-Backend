@@ -30,18 +30,7 @@
           <span class="text">Dashboard</span>
         </a>
       </li>
-      <!-- <li>
-        <a href=" ">
-          <i class='bx bxs-shopping-bag-alt' ></i>
-          <span class="text">Post Hotel</span>
-        </a>
-      </li> -->
-      <!-- <li>
-        <a href="#" class="logout">
-          <i class='bx bxs-log-out-circle' ></i>
-          <span class="text">Logout</span>
-        </a>
-      </li> -->
+     
     </ul>
   </section>
   <!--  SIDEBAR -->
@@ -70,14 +59,23 @@
         </a>
       </div>
       <ul class="box-info">
-        <li>
-          <img src="/images/hotel.jpg" class='bx bxs-calendar-check' ></i>
-          <span class="text">
-            <h3>Bon Hotel</h3>
-            <p>Booked</p>
-            <p>50 guests</p>
-          </span>
-        </li>
+       {% if hotels %}
+       {% for hotel in hotels%}
+       <li>
+        <img src="{{hotel.cover_image.url}}" class='bx bxs-calendar-check' ></i>
+        <span class="text">
+          <h3>{{hotel.hotel_name}}</h3>
+          <!-- <p>{{hotel.bookings |length}}</p> -->
+        </span>
+      </li>
+      {% endfor %}
+       {% else %}
+       <li>
+        <span class="text">
+          <h3>You haven't added hotels</h3>          
+        </span>
+      </li>
+       {% endif %}
       </ul>
       <div class="table-data">
         <div class="order">
