@@ -26,37 +26,37 @@
 </head>  
 <body>
 <div class="container-fluid fullp"> 
-        <div class="row no-gutter"> 
-          <div class="col-md-6 d-none d-md-flex bg-image">
-          </div> 
-          <div class="col-md-6 bg-light shadow-sm showHover" style="border-radius:16px ;"> 
-            
-            <div class="login d-flex align-items-center py-5"> 
-            <div class="container"> 
-  
-              <div class="row"> 
-                <h3 class="text-center display-4">We Connect Admin</h3> <br>                   
-  
-                <div class="col-lg-7 col-xl-6 mx-auto ">
-                  <h3 class="text-center display-4"></h3> <br>                   
+    <div class="row no-gutter"> 
+      <!-- <div class="col-md-6 d-none d-md-flex bg-image">
+      </div>  -->
+      <div class="col-md-3"></div> 
 
-                  
-<form action="{% url 'admin-login' %}" method="POST" novalidate>
-    {% csrf_token %}
-       {% for field in form.visible_fields %}
-         <div class="form-group">
-             {{ field.label_tag }}
-                {% render_field field class="form-control" %}
-                  {% if messages%}
-                    {% for message in messages %}
-                      <span style="color:red">{{ message }}</span>
-                    {% endfor %}
-                   {% endif %}
-       {% endfor %}
-       <br>
-           <input type="submit" value="Login" class="btn btn-block btn-primary" style="background-color: #60D143; border: #60D143;">
-         </div>
-  </form>
+  <div class="col-md-6 " style="border-radius:16px ;"> 
+    
+    <div class="login d-flex align-items-center py-5"> 
+    <div class="container"> 
+
+      <div class="row bg-light shadow-sm showHover"> 
+        <h3 class="text-center pt-2">We Connect Admin</h3> <br>                   
+
+        <div class="col-lg-7 col-xl-6 mx-auto ">
+        <h3 class="text-center display-4"></h3> <br>                        
+        <form action="{% url 'admin-login' %}" method="POST" novalidate>
+            {% csrf_token %}
+              {% for field in form.visible_fields %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                        {% render_field field class="form-control" %}
+                          {% if messages%}
+                            {% for message in messages %}
+                              <span style="color:red">{{ message }}</span>
+                            {% endfor %}
+                          {% endif %}
+              {% endfor %}
+              <br>
+                  <input type="submit" value="Login" class="btn btn-block btn-primary" style="background-color: #60D143; border: #60D143;">
+                </div>
+          </form>
   <div class="mt-2">
     <p class="text-center">
     <small class="text-muted">
