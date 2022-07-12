@@ -73,3 +73,19 @@ class newRoom(LoginRequiredMixin, CreateView):
         # hotel = Hotel.objects.filter(admin=currentUser.pk).all()
         return super().form_valid(form)  
 
+def edit_hotel(request, pk):
+    current_user=request.user.owner
+    if request.method=="POST":
+        instance = Hotel.objects.get(admin=current_user)
+        form =HotelForm(request.POST,request.FILES,instance=instance)
+        if form.is_valid():
+            hotel = form.save(commit = False)
+            hotel.admin = current_user
+            hotel.save()
+        return redirect('ownerDashboard')
+    elif Hotel.objects.get(admin=current_user):
+        hotel = Hotel.objects.get(admin=current_user)
+        form = HotelForm(instance=hotel)
+    else:
+        form = HotelForm()
+    return render(request,'posthotel.html',{"form":form})
