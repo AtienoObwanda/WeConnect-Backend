@@ -85,11 +85,11 @@
                         <div class="box me-4 my-1 bg-light">
                            
                             <div class="d-flex align-items-center mt-2">
-                                <div class="tag">Reservations: </div>
                                 {% if activeBookings %}
-                                {{activeBookings|length}}
+                                <div class="tag">Reservations: <br>{{activeBookings|length}}</div>
+                                
                                 {% else %}
-                                0
+                                <div class="tag">Reservations:<br> 0</div>
                                 {% endif %}
                             </div>
                         </div>
@@ -137,7 +137,7 @@
                           <div class="col-lg-4">
                             <div class="d-flex flex-column justify-content-between order-summary">
                                 <div class="d-flex align-items-center">
-                                    <div class="text-lowecase" style="color:#60D143">You haven't made any reservations yet...</div>
+                                    <div class="" style="color:#60D143">You haven't made any reservations yet...</div>
                                 </div>
                             </div>
                         </div>
