@@ -1,3 +1,7 @@
+import os
+import sendgrid
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 from django.shortcuts import render
 from django.views.generic import DeleteView, ListView, UpdateView, DetailView, CreateView
 from django.shortcuts import render, redirect, get_object_or_404
@@ -7,10 +11,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 
-import os
-import sendgrid
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+
 
 from .models import *
 from .forms import *
@@ -36,22 +37,24 @@ class ClientReg(CreateView):
         fName = form.cleaned_data['first_name']
         lName = form.cleaned_data['last_name']
         message = Mail(
-        from_email='communications.weconnect@gmail.com',
-        to_emails=[Uemail],
-        subject='We Connect Account Created Sucessfully!',
-        html_content='Hey, Your We Connect Account has been created successfully...'
+            from_email='communications.weconnect@gmail.com',
+            to_emails=[Uemail],
+            subject='We Connect Account Created Sucessfully!',
+            html_content='Hey, Your We Connect Account has been created successfully...'
         )
         message.dynamic_template_data = {
-        'first_name': fName,
-        'last_name': lName,
-        'unique_name': Uname,
-        'email':Uemail,
-        'sender_name': 'We Connect',
-        'sender_address': '00200',
-        'sender_city': 'Nairobi, Kenya'
+            'first_name': fName,
+            'last_name': lName,
+            'unique_name': Uname,
+            'email':Uemail,
+            'sender_name': 'We Connect',
+            'sender_address': '00200',
+            'sender_city': 'Nairobi, Kenya'
         }
         message.template_id =  'd-ddb091bebde04c108a96a9e15a65b87'
+
         user = form.save()
+        
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             response = sg.send(message)
