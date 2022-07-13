@@ -1,4 +1,9 @@
-from http import client
+import os
+import sendgrid
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 from django.shortcuts import render
 from django.views.generic import DeleteView, ListView, UpdateView,DetailView, CreateView
 from django.http  import HttpResponse, Http404, HttpResponseRedirect
@@ -13,7 +18,6 @@ from accounts.models import Client, Owner
 from .forms import BookingForm
 from app.models import Bookings, Hotel, Room
 from accounts.models import *
-
 
 
 def clientDashboard(request):
@@ -34,8 +38,23 @@ def addNewBooking(request, pk):
             booking.amount = room
             booking.save()
             booking.user.set([request.user.client])
+            Uemail = form.cleaned_data['email']
+            Uname = form.cleaned_data['fullName']
+            message = Mail(
+                from_email='communications.weconnect@gmail.com',
+                to_emails=[Uemail],
+                subject='We Connect Account Created Sucessfully!',
+                html_content='Hey, Your Reservation has been added...')
+            # message.template_id =  'd-954adeb95caa47c9a1ac223a602059c8'
             booking.save()
-            print(room.rate)
+            try:
+                sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+                response = sg.send(message)
+                print(response.status_code)
+                print(response.body)
+                print(response.headers)
+            except Exception as e:
+                print(e.message)
             # return redirect('hotelPage', pk)
             return redirect('clientDashboard')
     else:
