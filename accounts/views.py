@@ -39,9 +39,18 @@ class ClientReg(CreateView):
         from_email='communications.weconnect@gmail.com',
         to_emails=[Uemail],
         subject='We Connect Account Created Sucessfully!',
-        html_content='Hey, Your We Connect Account has been created successfully...')
-        message.template_id =  'd-954adeb95caa47c9a1ac223a602059c8'
-
+        html_content='Hey, Your We Connect Account has been created successfully...'
+        )
+        message.dynamic_template_data = {
+        'first_name': fName,
+        'last_name': lName,
+        'unique_name': Uname,
+        'email':Uemail,
+        'sender_name': 'We Connect',
+        'sender_address': '00200',
+        'sender_city': 'Nairobi, Kenya'
+        }
+        message.template_id =  'd-ddb091bebde04c108a96a9e15a65b87'
         user = form.save()
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))

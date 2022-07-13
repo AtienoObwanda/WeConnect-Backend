@@ -14,6 +14,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+
+
 from accounts.models import Client, Owner
 from .forms import BookingForm
 from app.models import Bookings, Hotel, Room
