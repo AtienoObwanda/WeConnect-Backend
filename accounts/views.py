@@ -43,10 +43,10 @@ class ClientReg(CreateView):
             html_content='Hey, Your We Connect Account has been created successfully...'
         )
         message.dynamic_template_data = {
-            'first_name': fName,'last_name': lName, 'unique_name': Uname,'email': Uemail,
+            'first_name': Uname,
                     }
         user = form.save()
-        message.template_id =  'd-ddb091bebde04c108a96a9e15a65b87'
+        message.template_id =  'd-ddb091bebde04c108a96a9e15a65b87f'
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             response = sg.send(message)
