@@ -46,7 +46,7 @@ class ClientReg(CreateView):
             'first_name': Uname,
                     }
         user = form.save()
-        message.template_id =  'd-ddb091bebde04c108a96a9e15a65b87f'
+        message.template_id =  'd-1f61c397b2334ce5b4628a9cbf19c437'
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             response = sg.send(message)

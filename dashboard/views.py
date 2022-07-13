@@ -48,7 +48,7 @@ def addNewBooking(request, pk):
                 to_emails=[Uemail],
                 subject='We Connect Account Created Sucessfully!',
                 html_content='Hey, Your Reservation has been added...')
-            # message.template_id =  'd-954adeb95caa47c9a1ac223a602059c8'
+            # message.template_id =  'd-1f61c397b2334ce5b4628a9cbf19c437'
             booking.save()
             try:
                 sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
