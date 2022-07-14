@@ -96,15 +96,15 @@ def ownerDashboard(request):
         day_in = int(book.check_in.strftime("%Y%m%d%H%M%S"))
         day_out = int(book.check_out.strftime("%Y%m%d%H%M%S"))
 
-    days=((day_out-day_in)/1000000)
-    total_amount=(book.amount.rate*days)
+        days=((day_out-day_in)/1000000)
+        total_amount=(book.amount.rate*days)
 
-    amounts.append(total_amount)
-    sum = sum + total_amount
+        amounts.append(total_amount)
+        sum = sum + total_amount
 
-    mylist = zip(bookings, amounts)
+        mylist = zip(bookings, amounts)
 
-    print(sum)
+    # print(sum)
 
     # rooms 
     rooms = Room.objects.filter(hotel__id__in = hotels).all()
