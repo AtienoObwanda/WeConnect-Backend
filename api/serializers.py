@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from django.db import transaction
 
-from api.models import User, Customer, owner, Facility, Hotel, Room, Booking
-
+from app.models import Hotel, Room, Bookings
+from accounts.models import User, Client, Owner
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,9 +39,9 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
         if password !=password2:
             raise serializers.ValidationError({"error":"password do not match"})
         user.set_password(password)
-        user.is_customer=True
+        user.is_client=True
         user.save()
-        Customer.objects.create(user=user)
+        Client.objects.create(user=user)
         return user
     @transaction.atomic
     def save(self, *args, **kwargs):
@@ -57,11 +57,11 @@ class CustomerSignupSerializer(serializers.ModelSerializer):
         if password !=password2:
             raise serializers.ValidationError({"error":"password do not match"})
         user.set_password(password)
-        user.is_customer = True
+        user.is_client = True
        
         user.save() 
-        customer = Customer.objects.create(user=user)
-        customer.save()
+        client = Client.objects.create(user=user)
+        client.save()
         return user
 
 
@@ -88,7 +88,7 @@ class HotelAdminSignupSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.is_owner=True
         user.save()
-        owner.objects.create(user=user)
+        Owner.objects.create(user=user)
         return user
 
 
@@ -108,7 +108,7 @@ class BookingSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
-        model = Booking
+        model = Bookings
         fields = "__all__"
 
     

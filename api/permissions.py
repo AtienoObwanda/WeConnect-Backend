@@ -11,4 +11,4 @@ class IsHotelAdminUser(BasePermission):
 class IsCustomerUser(BasePermission):
     def has_permission(self, request, view):
 
-        return bool(request.user and request.user.is_customer)
+        return bool(request.user and request.user.is_client)
