@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     "corsheaders",
     'django.contrib.humanize',
-    'api',
+    # 'api',
     'app',
     'accounts',
     'dashboard',
