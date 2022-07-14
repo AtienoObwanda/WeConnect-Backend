@@ -25,8 +25,21 @@ from accounts.models import *
 
 def clientDashboard(request):
     currentUser = request.user.client
-    activeBookings = Bookings.objects.filter(user=currentUser.pk).all()    
-    return render(request, 'client.html', {'activeBookings': activeBookings})
+    activeBookings = Bookings.objects.filter(user=currentUser.pk).all() 
+    books = list(activeBookings)
+    amounts = []
+    for book in books:
+        day_in = int(book.check_in.strftime("%Y%m%d%H%M%S"))
+        day_out = int(book.check_out.strftime("%Y%m%d%H%M%S"))
+
+        days=((day_out-day_in)/1000000)
+        total_amount=(book.amount.rate*days)
+        amounts.append(total_amount)
+
+    mylist = zip(activeBookings, amounts)
+    
+
+    return render(request, 'client.html', {'activeBookings': activeBookings ,'mylist':mylist})   
 
 @login_required
 def addNewBooking(request, pk):
