@@ -12,27 +12,26 @@ urlpatterns = [
    
     path('signup/customer/', CustomerSignupView.as_view()),
     path('signup/admin/', HotelAdminSignupView.as_view()),
-    path('login/',CustomAuthToken.as_view(), name='auth-token'),
-    path('logout/', LogoutView.as_view(), name='logout-view'),
+    path('login/',CustomAuthToken.as_view()),
+    path('logout/', LogoutView.as_view()),
 
-    path('customer/dashboard/<int:pk>/', CustomerOnlyView.as_view(), name='customer-dashboard'),
-    # path('customer/dashboard/', CustomerOnlyView.as_view(), name='customer-dashboard'),
+    path('customer/dashboard/<int:pk>/', CustomerOnlyView.as_view()),
 
-    path('admin/dashboard/', AdminOnlyView.as_view(), name='admin-dashboard'),
+    path('admin/dashboard/', AdminOnlyView.as_view()),
 
-    path('hotel-detail/<int:pk>/', GetHotel.as_view(), name='hotel-detail'), # Configure api request
+    path('hotel-detail/<int:pk>/', GetHotel.as_view()), # Configure api request
 
-    path('delete-hotel/<int:pk>/', DeleteHotel.as_view(), name=' deleteHotel'),
-    path('update-hotel/<int:pk>/', UpdateHotel.as_view(), name='updateHotel'),
+    path('delete-hotel/<int:pk>/', DeleteHotel.as_view()),
+    path('update-hotel/<int:pk>/', UpdateHotel.as_view()),
     
-    path('new-hotel/', AddHotel.as_view(), name='newHotel'), # Configure api request => to be configured inside admindashboard
+    path('new-hotel/', AddHotel.as_view()), # Configure api request => to be configured inside admindashboard
 
-    path('new-room/', AddRoom.as_view(), name='newRoom'), # Configure api request => to be configured inside admindashboard
+    path('new-room/', AddRoom.as_view()), # Configure api request => to be configured inside admindashboard
 
-    path('new-booking/', AddBooking.as_view(), name='newBooking'), # Configure api request-to be configured inside customer dashboard
+    path('new-booking/', AddBooking.as_view()), # Configure api request-to be configured inside customer dashboard
     
-    path('hotels/', HotelList.as_view(), name='hotels'), # Configure api request
-    path('bookings/', BookingList.as_view(), name='bookings'), # Configure api request
+    path('hotels/', HotelList.as_view()), # Configure api request
+    path('bookings/', BookingList.as_view()), # Configure api request
 
 
 

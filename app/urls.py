@@ -12,7 +12,7 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('hotels/', views.hotels, name='hotels'),
-    path('hotel/<int:pk>/', views.HotelDetailList.as_view(),name='hotelPage'),
+    path('hotel/<int:pk>/', views.HotelDetailList.as_view(),name='hotel-page'),
     
 ]
 # if settings.DEBUG:
