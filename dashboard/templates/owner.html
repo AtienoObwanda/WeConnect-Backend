@@ -142,7 +142,7 @@
                 <td>{{booking.date|time}}</td>
                 <td>{{booking.amount}}</td>
                 <td>{{booking.hotel}}</td>
-                <td>{{amount|intcomma}}</td>
+                <td>{{booking.amount.rate|intcomma}}</td>
               </tr>
               {% endfor %}
               <!--Get Total booking amount-->
@@ -153,7 +153,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><span class="status completed">{{sum}}</span></td>
+                <td><span class="status completed">{{sum|intcomma}}</span></td>
 
               </tr>
               <!--End Total Booking amount-->
