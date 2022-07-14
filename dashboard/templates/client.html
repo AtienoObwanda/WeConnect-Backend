@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% load static %}
 
 {% block content %}
@@ -109,7 +110,7 @@
                                     <div class="fs-8"><small><span style="font-weight: bold;">Email: </span> {{activeBooking.email}}</small></div>
                                     <hr/>
                                     <div class="fs-8"><small><span style="font-weight: bold;">Room Type:</span> {{activeBooking.amount}}</small></div>
-                                    <div class="fs-8"><small><span style="font-weight: bold;">Amount:</span> {{amount}}/
+                                    <div class="fs-8"><small><span style="font-weight: bold;">Amount:</span> {{amount|intcomma}}/
                                     </small></div>
                                     <div class="fs-8"><small><span style="font-weight: bold;">From: </span> {{activeBooking.check_in |date}} | <span style="font-weight: bold;">To: </span>{{activeBooking.check_out |date}}</small></div>
                                       <hr/>
