@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-@font-face{
+/* @font-face{
     font-family: Newyork;
     src: local('Newyork'),url('../fonts/NewYork.otf')
     format("truetype");
-  }
+  } */
   @font-face{
     font-family: Gotham Pro;
     src: local('Gotham Pro'),url('../fonts/GothamProRegular.ttf')
@@ -15,6 +15,7 @@
   padding: 0;
   box-sizing: border-box;
   overflow-y: visible;
+  font-family: Gotham Pro;
 }
 a {
   text-decoration: none;

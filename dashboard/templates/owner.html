@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load humanize %}
 {% load static %}
 {% block content %}
 
@@ -133,7 +133,7 @@
             <tbody>
              {% if bookings %}
               <!-- Guests loop -->
-              {% for booking in bookings %}
+              {% for booking, amount in mylist %}
               <tr>
                 <!-- <td>
                   <p>{{booking.user.userBookings}}</p>
@@ -142,7 +142,7 @@
                 <td>{{booking.date|time}}</td>
                 <td>{{booking.amount}}</td>
                 <td>{{booking.hotel}}</td>
-                <td>{{booking.amount.rate}}</td>
+                <td>{{amount|intcomma}}</td>
               </tr>
               {% endfor %}
               <!--Get Total booking amount-->

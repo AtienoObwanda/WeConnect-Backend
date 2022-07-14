@@ -84,23 +84,27 @@ def addNewBooking(request, pk):
 
 
 def ownerDashboard(request):
-  currentUser = request.user.owner
-  hotels = Hotel.objects.filter(admin=currentUser.pk).all() 
-  # bookings 
-  bookings = Bookings.objects.filter(hotel__id__in = hotels).all()
-  count = bookings.count()
-  books  = list(bookings)
-  print(books)
-  sum = 0
-  for book in books:
-    print(book.amount.rate)
-    sum+=book.amount.rate
-  print(sum)
+    currentUser = request.user.owner
+    hotels = Hotel.objects.filter(admin=currentUser.pk).all() 
+    currentUser = request.user.owner
+    hotels = Hotel.objects.filter(admin=currentUser.pk).all() 
+    rooms = Room.objects.filter(hotel__id__in = hotels).all()
+    # bookings 
+    bookings = Bookings.objects.filter(hotel_id_in = hotels).all()
+    count = bookings.count()
+    books  = list(bookings)
+    sum = 0
+    amounts = []
+    for book in books:
+        day_in = int(book.check_in.strftime("%Y%m%d%H%M%S"))
+        day_out = int(book.check_out.strftime("%Y%m%d%H%M%S"))
+
+        days=((day_out-day_in)/1000000)
+        total_amount=(book.amount.rate*days)
   
   # rooms 
-  rooms = Room.objects.filter(hotel__id__in = hotels).all()
-
-  return render(request, 'owner.html', { 'hotels':hotels, 'rooms':rooms, 'bookings':bookings, 'count':count, 'sum':sum})
+    mylist = zip(bookings, amounts)
+    return render(request, 'owner.html', { 'hotels':hotels, 'rooms':rooms, 'bookings':bookings, 'count':count, 'sum':sum, 'mylist':mylist})
       
 class newHotel(LoginRequiredMixin, CreateView):
     model = Hotel
