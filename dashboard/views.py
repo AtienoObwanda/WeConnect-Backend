@@ -102,7 +102,7 @@ def ownerDashboard(request):
         amounts.append(total_amount)
         sum = sum + total_amount
 
-        mylist = zip(bookings, amounts)
+    mylist = zip(bookings, amounts)
 
     # print(sum)
 
