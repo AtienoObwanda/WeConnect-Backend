@@ -7,15 +7,16 @@ We Connect is an online booking platform for hotels. As the name, we connect use
 
 1. Sign up as a user: https://weconnekt.herokuapp.com/api/signup/customer/
 **** 
-2. Login as a user:
-****
+<!-- 2. Login as a user: -->
+<!-- **** -->
 
-3. Sign up as an admin: https://weconnekt.herokuapp.com/api/signup/admin/
+2. Sign up as an admin: https://weconnekt.herokuapp.com/api/signup/admin/
 
 **** 
-4. Login as admin:
+<!-- 4. Login as admin: -->
+<!-- ****  -->
 **** 
-**** 
+3. Admin dashboard: https://weconnekt.herokuapp.com/api/admin/dashboard/
 **** 
 **** 
 **** 

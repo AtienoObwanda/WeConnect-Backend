@@ -59,7 +59,7 @@ class HotelAdminSignupView(generics.GenericAPIView):
             "message":"account created successfully"
         })
 
-class CustomAuthToken(generics.GenericAPIView, ObtainAuthToken): # Login for both admin and customer accounts
+class CustomAuthToken(generics.GenericAPIView): # Login for both admin and customer accounts
     def post(self, request, *args, **kwargs):
         serializer=self.serializer_class(data=request.data, context={'request':request})
         serializer.is_valid(raise_exception=True)

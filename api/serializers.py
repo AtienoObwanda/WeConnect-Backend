@@ -97,20 +97,10 @@ class HotelAdminSignupSerializer(serializers.ModelSerializer):
 # Add Hotel
 class HotelSerializer(serializers.ModelSerializer):
    
-    # admin  = serializers.PrimaryKeyRelatedField(
-    #     queryset=User.objects.all(), # Or User.objects.filter(active=True)
-    #     required=False, 
-    #     allow_null=True, 
-    #     default=None)
     class Meta:
         model = Hotel
         fields = "__all__"
         
-    # def create(self, validated_data):
-    #     instance = self.Meta.model(**validated_data)
-    #     instance.save()
-    #     return instance
-   
 
 # Add Booking
 class BookingSerializer(serializers.ModelSerializer):
