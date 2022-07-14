@@ -10,7 +10,6 @@ from django.conf import settings
 
 urlpatterns = [
    
-    path('', views.home),
     path('signup/customer/', CustomerSignupView.as_view()),
     path('signup/admin/', HotelAdminSignupView.as_view()),
     path('login/',CustomAuthToken.as_view(), name='auth-token'),

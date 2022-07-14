@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'widget_tweaks',
     'crispy_forms',
-    # 'api',
+    'api',
     "corsheaders",
     'app',
     'accounts',
