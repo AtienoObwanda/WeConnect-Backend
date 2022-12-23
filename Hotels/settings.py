@@ -227,15 +227,15 @@ LOGIN_URL = 'login'
 # setting default email for sending email through sendgrid
 
 cloudinary.config( 
-  cloud_name = "dyiuol5sx", 
-  api_key = "226889347825597", 
-  api_secret = "gq5g9UhQzFd36mDRLqcOoIeEoOY" 
+  cloud_name = "....", 
+  api_key = "...", 
+  api_secret = "..." 
 )
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME' : "dyiuol5sx",
-    'API_KEY' : "226889347825597",
-    'API_SECRET' : "gq5g9UhQzFd36mDRLqcOoIeEoOY",
+    'CLOUD_NAME' : "...",
+    'API_KEY' : "...",
+    'API_SECRET' : "...",
 }
 
 django_heroku.settings(locals())
